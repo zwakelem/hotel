@@ -1,29 +1,44 @@
-import { Component } from '@angular/core';
-import { ApiService } from '../../service/api';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Room } from '../../model/room';
 import { CommonModule } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EMPTY, Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { EMPTY, Observable } from 'rxjs';
+import { Messages } from '../../common/messages/messages';
+import { Room } from '../../model/room';
+import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
 
 @Component({
   selector: 'app-room-details',
-  imports: [CommonModule, FormsModule, NgbModule, NgbDatepickerModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbModule,
+    NgbDatepickerModule,
+    Messages,
+  ],
   templateUrl: './room-details.html',
   styleUrl: './room-details.css',
+  providers: [MessagesService],
 })
 export class RoomDetails {
+  @ViewChild(Messages)
+  messagesComponent!: Messages;
   room$: Observable<Room> = EMPTY;
   room: Room | null = null;
   roomId: any = '';
   checkInDate: NgbDateStruct = this.todaysDate();
   checkOutDate: NgbDateStruct = this.todaysDate();
+  selectedCheckInDate?: Date;
+  selectedCheckOutDate?: Date;
+  selectedCheckIn?: string;
+  selectedCheckOut?: string;
+
   totalPrice: number = 0;
   totalDaysToStay: number = 0;
   showDatePicker: boolean = false;
@@ -31,7 +46,6 @@ export class RoomDetails {
   message: any = null;
 
   minDate: NgbDateStruct = this.todaysDate(); // Current date
-
   maxDate: NgbDateStruct = this.getDateSixMonthsFromNow();
 
   constructor(
@@ -143,5 +157,39 @@ export class RoomDetails {
       month: currentDate.getMonth() + 1, // Add 1 because native Date.getMonth() is 0-indexed
       day: currentDate.getDate(),
     };
+  }
+
+  onSelectedDate() {
+    // this.messagesService.showErrors('');
+    this.messagesComponent.showMessages = false;
+
+    if (this.checkInDate && this.checkOutDate) {
+      console.log('check-in date ' + this.checkInDate);
+      console.log('check-out date ' + this.checkOutDate);
+
+      this.selectedCheckInDate = this.parseDate(this.checkInDate);
+      this.selectedCheckOutDate = this.parseDate(this.checkOutDate);
+
+      this.selectedCheckIn = this.parseDate(this.checkInDate)
+        .toISOString()
+        .slice(0, 10);
+      this.selectedCheckOut = this.parseDate(this.checkOutDate)
+        .toISOString()
+        .slice(0, 10);
+
+      console.log('check-in date ' + this.selectedCheckInDate);
+      console.log('check-out date ' + this.selectedCheckOutDate);
+
+      if (this.selectedCheckOutDate <= this.selectedCheckInDate) {
+        this.messagesService.showErrors(
+          'Check-out date must be after check-in date'
+        );
+        return;
+      }
+    } else {
+      this.messagesService.showErrors(
+        'Check-out and check-in dates are required!!'
+      );
+    }
   }
 }

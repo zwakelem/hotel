@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   NgbCalendar,
@@ -7,13 +8,11 @@ import {
   NgbDateStruct,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from '../../service/api';
-import { Constants } from '../../util/Constants';
-import { Room } from '../../model/room';
-import { MessagesService } from '../../service/messages.service';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { Room } from '../../model/room';
+import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
-import { CommonModule } from '@angular/common';
+import { MessagesService } from '../../service/messages.service';
 
 @Component({
   selector: 'app-roomsearch',

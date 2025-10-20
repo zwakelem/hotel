@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { MessagesService } from '../../service/messages.service';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { EMPTY, Observable, tap } from 'rxjs';
+import { MessagesService } from '../../service/messages.service';
 
 @Component({
   selector: 'app-messages',
@@ -13,6 +13,7 @@ export class Messages {
   //TODO: make it reusable for error or success or warn messages
   showMessages = false;
   errors$: Observable<string[]> = EMPTY;
+  messageType: string | null = null;
 
   constructor(public messagesService: MessagesService) {}
 

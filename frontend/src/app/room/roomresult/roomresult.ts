@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../service/api';
-import { EMPTY, Observable, of } from 'rxjs';
-import { Room } from '../../model/room';
-import { CommonModule } from '@angular/common';
+import { EMPTY, Observable } from 'rxjs';
 import { LoadingComponent } from '../../common/loading/loading.component';
+import { Room } from '../../model/room';
+import { ApiService } from '../../service/api';
 
 @Component({
   selector: 'app-roomresult',

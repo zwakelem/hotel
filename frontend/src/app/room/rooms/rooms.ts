@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { Roomresult } from '../roomresult/roomresult';
-import { Roomsearch } from '../roomsearch/roomsearch';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../service/api';
-import { Constants } from '../../util/Constants';
 import { EMPTY, Observable, throwError } from 'rxjs';
-import { Room, sortRoomsById } from '../../model/room';
 import { catchError, map } from 'rxjs/operators';
+import { Room, sortRoomsById } from '../../model/room';
+import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
+import { Roomresult } from '../roomresult/roomresult';
+import { Roomsearch } from '../roomsearch/roomsearch';
 
 @Component({
   selector: 'app-rooms',
