@@ -1,5 +1,6 @@
 # hotel
 
+
 ## TODO
 
 - query available rooms functionality
