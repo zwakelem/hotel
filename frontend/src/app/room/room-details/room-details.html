@@ -1,0 +1,87 @@
+@if (room$ | async; as room) {
+  <ng-container>
+    <div class="container d-flex justify-content-center align-items-center mt-3">
+      <div class="col-md-6 w-50 overflow-y-auto">
+        <div class="card shadow">
+          <div class="card-body">
+            <h2 class="card-title h3 blue-color text-center">
+              ROOM DETAILS
+            </h2>
+
+            <img [src]="room?.imageUrl" [alt]="room?.roomType" class="img-fluid rounded" />
+
+            <h3 class="h3 text-center mt-3">{{ room?.roomType }}</h3>
+            <div class="ms-3 mb-1">
+              <p class="my-1"><strong>Room Number:</strong> {{ room?.roomNumber }}</p>
+              <p class="my-1"><strong>Capacity:</strong> {{ room?.capacity }}</p>
+              <p class="my-1 mb-2"><strong>Price:</strong> ${{ room?.pricePerNight }} / night</p>
+              <p>{{ room?.description }}</p>
+
+              <button class="btn btn-success px-5 mt-2" (click)="showDatePicker = true">Select Dates</button>
+              
+            </div>
+
+            @if (showDatePicker) {
+              <ng-container>
+                <div class="w-75 mt-3 px-3">
+
+                  <div class="mb-1">
+                    <!-- Check-in Date Picker -->
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">&nbsp;Check-in&nbsp;</span>
+                      <input
+                        class="form-control"
+                        placeholde="yyyy/mm/dd"
+                        name="dpci"
+                        ngbDatepicker
+                        [(ngModel)]="checkInDate"
+                        #dci="ngbDatepicker"
+                        [minDate]="minDate"
+                        [maxDate]="maxDate"/>
+                      <button type="button" class="btn btn-primary" (click)="dci.toggle()">
+                        <span><i class="bi bi-calendar-check-fill"></i></span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Check-out Date Picker -->
+                  <div class="my-1">
+                    <div class="input-group">
+                      <span class="input-group-text">Check-out</span>
+                      <input class="form-control"
+                        placeholde="yyyy/mm/dd"
+                        name="dpco"
+                        ngbDatepicker
+                        [(ngModel)]="checkOutDate"
+                        [minDate]="minDate"
+                        #dco="ngbDatepicker"
+                        [maxDate]="maxDate" />
+                      <button class="btn btn-primary" (click)="dco.toggle()">
+                        <span><i class="bi bi-calendar-check-fill"></i></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </ng-container>
+            }
+            <!-- Booking Preview and Submit -->
+            @if (showBookingPreview) {
+              <ng-container class="preview-container">
+                <h3>Booking Preview</h3>
+                <p><strong>Check-in Date:</strong> {{ null }}</p>
+                <p><strong>Check-out Date:</strong> {{ null }}</p>
+                <p><strong>Total Days To Stay:</strong> {{ totalDaysToStay }}</p>
+                <p><strong>Total Price:</strong> ${{ totalPrice }}</p>
+                <button (click)="acceptBooking()" class="confirm-booking-button">Confirm and Book</button>
+                <button class="cancel-button" (click)="cancelBookingPreview()">Cancel</button>
+              </ng-container>
+            }
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="push"></div>
+  </ng-container>
+}  

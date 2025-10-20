@@ -1,0 +1,20 @@
+@if(errors$ | async; as errors) {
+
+  @if(showMessages) {
+
+    @for(error of errors; track error) {
+
+      <div class="alert alert-danger alert-dismissible fade show w-100 p-0" role="alert">
+        <p class="text-center pt-3">{{ error }}</p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          (click)="onClose()"
+          aria-label="Close"></button>
+      </div>
+    }
+
+  }
+
+}

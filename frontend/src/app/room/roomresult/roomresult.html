@@ -1,0 +1,37 @@
+<div class="container w-100 my-2">
+  <div class="row">
+
+    <loading></loading>
+    <ng-container>
+
+        @for (room of roomSearchResults$ | async; track room.id) {
+        <div class="card mb-3 p-0 vh-50">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img [src]="room.imageUrl" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8 flex-column">
+              <div class="card-body">
+                <h3 class="h3 mb-2">Type: {{ room.roomType }}</h3>
+                <h5 class="card-title h5">Price: R{{ room.pricePerNight }}/Night</h5>
+                <p class="card-text">{{ room.description }}</p>
+        
+                <div class="align-bottom">
+                  <!-- Conditionally render button based on admin status -->
+                  @if (isAdmin) {
+                  <button class="btn btn-dark my-1" (click)="navigateToEditRoom(room.id)">Edit Room</button>
+                  }
+                  @if (!isAdmin) {
+                  <button class="btn btn-info mx-2" (click)="navigateToRoomDetails(room.id)">View / Book Now</button>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      
+    </ng-container>
+    
+  </div>
+</div>

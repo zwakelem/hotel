@@ -1,0 +1,6 @@
+#!/bin/bash
+set -a
+source .env
+set +a
+# Run the Spring Boot application with debugging enabled
+./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"

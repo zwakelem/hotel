@@ -1,0 +1,27 @@
+<div class="container">
+
+  <h2 class="h2 text-center mt-5">Find Booking</h2>
+  <div class="row w-100 my-3">
+
+  <!-- Search Section -->
+  <div class="row mb-3">
+    <div class="d-flex justify-content-center w-50 center-item">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Enter your booking confirmation code"
+        [(ngModel)]="confirmationCode"
+        required />
+      <button class="btn btn-primary ms-4" (click)="handleSearch()">Find</button>
+    </div>
+  </div>
+
+  <!-- Booking Details -->
+  @if(bookingDetails$ | async; as booking) {
+    <ng-container>
+      <app-booking-list-component [bookingDetails]="booking"></app-booking-list-component>
+    </ng-container>
+  } @else {
+    <loading></loading>
+  }
+</div>

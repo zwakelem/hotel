@@ -1,0 +1,75 @@
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Maven / Java
+target/
+*.class
+*.log
+
+# Spring Boot
+spring-boot-devtools.properties
+
+# Maven wrapper (keep the wrapper scripts/jars tracked if you need them)
+# Uncomment the next line if you want to ignore the wrapper jar
+# .mvn/wrapper/maven-wrapper.jar
+
+# Node / Angular
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+dist/
+frontend/dist/
+.angular/
+.angular-cache/
+frontend/.angular/
+frontend/.angular-cache/
+frontend/src/node/*
+
+# Build output
+build/
+dist/
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+pip-wheel-metadata/
+*.egg-info/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+secrets.*
+credentials.json
+.aws/credentials
+.aws/config
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+
+# OS / misc
+Thumbs.db
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+
+/frontend/.vscode/

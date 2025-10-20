@@ -1,0 +1,98 @@
+<div class="container min-vh-100 d-flex justify-content-center mt-5">
+  <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-3 h3 blue-color">Register</h3>
+
+        <form #loginForm="ngForm" (ngSubmit)="handleSubmit()">
+
+          <div class="form-floating mb-3">
+            <input
+              id="firstName"
+              type="text"
+              class="form-control"
+              required
+              firstName
+              name="firstName"
+              placeholder="First Name"
+              [(ngModel)]="formData.firstName"
+              #firstNameModel="ngModel" />
+            <label class="form-label">First Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              id="lastName"
+              type="text"
+              class="form-control"
+              required
+              lastName
+              name="lastName"
+              placeholder="Last Name"
+              [(ngModel)]="formData.lastName"
+              #lastNameModel="ngModel" />
+            <label class="form-label">Last Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              required
+              email
+              name="email"
+              placeholder="email"
+              [(ngModel)]="formData.email"
+              #emailModel="ngModel" />
+            <label class="form-label">email</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              required
+              password
+              name="password"
+              placeholder="password"
+              [(ngModel)]="formData.password"
+              #passwordModel="ngModel" />
+            <label class="form-label">password</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              id="phoneNumber"
+              type="number"
+              class="form-control"
+              required
+              phoneNumber
+              name="phoneNumber"
+              placeholder="072 111 3333"
+              [(ngModel)]="formData.phoneNumber"
+              #phoneNumberModel="ngModel" />
+            <label class="form-label">phone number</label>
+          </div>
+          
+
+          <div class="d-grid gap-2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="loginForm.invalid">
+              Register
+            </button>
+          </div>
+        </form>
+
+        <div class="text-center mt-3">
+          <p>Already have an account? 
+            <a class="orange-color" routerLink="/login">Login</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

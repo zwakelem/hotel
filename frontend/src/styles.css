@@ -1,0 +1,31 @@
+.orange-color {
+  color: #FF7F50;
+}
+
+.blue-light-color {
+  color: #00ddff;
+}
+
+.blue-color {
+  color: #007F86;
+}
+
+.red-color {
+  color: #901956;
+}
+
+.center-item {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hover-orange:hover {
+  background-color: #FF7F50;
+  cursor: pointer;
+}
+
+.height-scroll {
+  height: auto;
+  overflow-y: scroll;
+  margin-bottom: 5rem;
+}

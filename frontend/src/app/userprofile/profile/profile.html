@@ -1,0 +1,52 @@
+@if (user$ | async; as user) {
+  <ng-container>
+    <div class="container d-flex justify-content-center mt-5">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-4 w-50">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h3 blue-color text-center">
+              Welcome, {{ user.firstName }}
+            </h2>
+
+            <!-- Profile Details -->
+            <div>
+              <h4 class="h3">My Profile Details</h4>
+              <p>
+                <span class="fw-semibold">Email:</span>
+                <span class="fw-lighter">{{ user.email }}</span>
+              </p>
+              <p>
+                <span class="fw-semibold">Phone Number:</span>
+                <span class="fw-lighter">{{ user.phoneNumber }}</span>
+              </p>
+            </div>
+            <div class="btn-group float-end" role="group">
+              <button type="button" class="btn btn-primary" (click)="handleEditProfile()">Edit Profile</button>
+              <button type="button" class="btn btn-danger mx-2">Logout</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  @if (bookings$ | async; as bookings) {
+  <ng-container class="min-vh-25">
+    <h3 class="h3 text-center mt-3">Booking History</h3>
+    <div class="row w-75 center-item">
+      @for(booking of bookings; track booking.id) {
+      <app-booking-list-component [bookingDetails]="booking"></app-booking-list-component>
+      }
+    </div>
+  </ng-container>
+  
+  } @else {
+  <p class="fw-semibold">You have no booking history</p>
+  }
+}
+
+
+
+
+

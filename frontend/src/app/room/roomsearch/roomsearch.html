@@ -1,0 +1,67 @@
+<div class="container">
+      
+  <div class="row">
+    <div class="d-flex justify-content-start w-100 px-0">
+
+      <div class="col-md-3">
+        <!-- Check-in Date Picker -->
+        <div class="input-group mb-3">
+          <span class="input-group-text">Check-in</span>
+          <input
+            class="form-control" 
+            placeholde="yyyy/mm/dd" 
+            name="dpci" 
+            ngbDatepicker 
+            [(ngModel)]="startDate" 
+            #dci="ngbDatepicker" 
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            [navigation]="'arrows'"
+          />
+          <button type="button" class="btn btn-primary" (click)="dci.toggle()">
+            <span><i class="bi bi-calendar-check-fill"></i></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Check-out Date Picker -->
+      <div class="col-md-3 mx-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Check-out</span>
+          <input class="form-control" 
+            placeholde="yyyy/mm/dd" 
+            name="dpco" 
+            ngbDatepicker 
+            [(ngModel)]="endDate" 
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            #dco="ngbDatepicker" 
+          />
+          <button class="btn btn-primary" (click)="dco.toggle()">
+            <span><i class="bi bi-calendar-check-fill"></i></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Room Type Selection -->
+      <div class="col-md-3 mx-4">
+        <div>
+          <select class="form-select" [(ngModel)]="roomType" (change)="filterByTypes()">
+            <option selected value="">All Room Types</option>
+            @for (tp of roomTypes$ | async; track tp) {
+            <option [value]="tp">
+              {{ tp }}
+            </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Search Button -->
+      <div class="col-md-3 ms-4">
+        <button class="btn btn-success" (click)="handleSearch()">Search Rooms</button>
+      </div>
+
+    </div>
+  </div>
+</div>

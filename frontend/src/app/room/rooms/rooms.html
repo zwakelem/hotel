@@ -1,0 +1,10 @@
+<div class="container mt-5">
+
+  <!-- Room Search Component -->
+  <!--app-roomsearch (searchResults)="handleSearchResult($event)"></app-roomsearch-->
+  <app-roomsearch (filterByTypesEvent)="filterRooms($event)" ></app-roomsearch>
+
+  <!-- Room Result Component -->
+  <app-roomresult [roomSearchResults$]="filteredRooms$"></app-roomresult>
+
+</div>
