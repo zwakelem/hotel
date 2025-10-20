@@ -1,21 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import CryptoJS from 'crypto-js';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  Observable,
-  shareReplay,
-  tap,
-  throwError,
-} from 'rxjs';
-import { User } from '../model/user';
-import { Response } from '../model/response';
+import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 import { Booking } from '../model/booking';
-import { Constants } from '../util/Constants';
+import { Response } from '../model/response';
 import { Room } from '../model/room';
-import { MessagesService } from './messages.service';
+import { User } from '../model/user';
+import { Constants } from '../util/Constants';
 
 @Injectable({
   providedIn: 'root',
@@ -27,12 +18,8 @@ export class ApiService {
   private roomTypeSubject = new BehaviorSubject<string[]>([]);
   courses$: Observable<string[]> = this.roomTypeSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private messagesService: MessagesService
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  //
   encryptAndSaveToStorage(key: string, value: string): void {
     const encryptedValue = CryptoJS.AES.encrypt(
       value,
