@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import za.co.simplitate.hotelbooking.exceptions.CustomAccessDenialHandler;
-import za.co.simplitate.hotelbooking.exceptions.CustomAuthenticationEntryPoint;
+import za.co.simplitate.hotelbooking.util.exceptions.CustomAccessDenialHandler;
+import za.co.simplitate.hotelbooking.util.exceptions.CustomAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity

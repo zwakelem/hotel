@@ -11,11 +11,11 @@ import za.co.simplitate.hotelbooking.entities.Booking;
 import za.co.simplitate.hotelbooking.entities.PaymentEntity;
 import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
 import za.co.simplitate.hotelbooking.entities.repositories.PaymentRepository;
-import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
 import za.co.simplitate.hotelbooking.services.notifications.NotificationService;
 import za.co.simplitate.hotelbooking.util.enums.NotificationType;
 import za.co.simplitate.hotelbooking.util.enums.PaymentGateway;
 import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

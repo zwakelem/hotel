@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.exceptions;
+package za.co.simplitate.hotelbooking.util.exceptions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

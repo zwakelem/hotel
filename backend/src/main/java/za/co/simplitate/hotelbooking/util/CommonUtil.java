@@ -1,6 +1,6 @@
 package za.co.simplitate.hotelbooking.util;
 
-import za.co.simplitate.hotelbooking.exceptions.InvalidBookingStateException;
+import za.co.simplitate.hotelbooking.util.exceptions.InvalidBookingStateException;
 
 import java.time.LocalDate;
 

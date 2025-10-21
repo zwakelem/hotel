@@ -12,9 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import za.co.simplitate.hotelbooking.entities.User;
 import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
 import za.co.simplitate.hotelbooking.entities.repositories.UserRepository;
-import za.co.simplitate.hotelbooking.exceptions.InvalidCredentialsException;
-import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
 import za.co.simplitate.hotelbooking.services.security.JWTUtils;
+import za.co.simplitate.hotelbooking.util.exceptions.InvalidCredentialsException;
+import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;

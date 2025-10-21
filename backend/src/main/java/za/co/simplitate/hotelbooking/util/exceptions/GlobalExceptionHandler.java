@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.exceptions;
+package za.co.simplitate.hotelbooking.util.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

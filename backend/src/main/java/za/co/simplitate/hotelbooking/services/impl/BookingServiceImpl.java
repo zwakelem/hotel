@@ -12,8 +12,6 @@ import za.co.simplitate.hotelbooking.entities.Room;
 import za.co.simplitate.hotelbooking.entities.User;
 import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
 import za.co.simplitate.hotelbooking.entities.repositories.RoomsRepository;
-import za.co.simplitate.hotelbooking.exceptions.InvalidBookingStateException;
-import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
 import za.co.simplitate.hotelbooking.services.BookingCodeGenerator;
 import za.co.simplitate.hotelbooking.services.BookingService;
 import za.co.simplitate.hotelbooking.services.UserService;
@@ -21,6 +19,8 @@ import za.co.simplitate.hotelbooking.services.notifications.NotificationService;
 import za.co.simplitate.hotelbooking.util.GenericMapper;
 import za.co.simplitate.hotelbooking.util.enums.BookingStatus;
 import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.util.exceptions.InvalidBookingStateException;
+import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import za.co.simplitate.hotelbooking.entities.User;
 import za.co.simplitate.hotelbooking.entities.repositories.UserRepository;
-import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
+import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
 @Service
 @RequiredArgsConstructor

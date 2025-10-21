@@ -10,10 +10,10 @@ import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.dtos.RoomTO;
 import za.co.simplitate.hotelbooking.entities.Room;
 import za.co.simplitate.hotelbooking.entities.repositories.RoomsRepository;
-import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
 import za.co.simplitate.hotelbooking.services.RoomService;
 import za.co.simplitate.hotelbooking.util.GenericMapper;
 import za.co.simplitate.hotelbooking.util.enums.RoomType;
+import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
 import java.io.File;
 import java.io.IOException;
