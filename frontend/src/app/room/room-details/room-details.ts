@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ import { MessagesService } from '../../service/messages.service';
   ],
   templateUrl: './room-details.html',
   styleUrl: './room-details.css',
-  providers: [MessagesService],
+  providers: [MessagesService, CurrencyPipe],
 })
 export class RoomDetails {
   @ViewChild(Messages)
@@ -33,7 +33,7 @@ export class RoomDetails {
   room: Room | null = null;
   roomId: any = '';
   checkInDate: NgbDateStruct = this.todaysDate();
-  checkOutDate: NgbDateStruct = this.todaysDate();
+  checkOutDate: NgbDateStruct = this.getDateOneMonthsFromNow();
   selectedCheckInDate?: Date;
   selectedCheckOutDate?: Date;
   selectedCheckIn?: string;
@@ -52,7 +52,8 @@ export class RoomDetails {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private currencyPipe: CurrencyPipe
   ) {}
 
   ngOnInit() {
@@ -82,17 +83,11 @@ export class RoomDetails {
       Math.abs((checkOut.getTime() - checkIn.getTime()) / oneDay)
     );
     this.totalDaysToStay = totalDays;
-    return 0;
-    // return this.room$ ? this.room$.pricePerNight * totalDays : 0;
+    return this.room ? this.room.pricePerNight * totalDays : 0;
   }
 
-  handleConfirmation(): void {
-    if (!this.checkInDate || !this.checkOutDate) {
-      this.messagesService.showErrors(
-        'Please select both check-in and check-out dates!!'
-      );
-      return;
-    }
+  proceedWithBooking(): void {
+    this.onSelectedDate();
 
     this.totalPrice = this.calculateTotalPrice();
     this.showBookingPreview = true;
@@ -159,14 +154,20 @@ export class RoomDetails {
     };
   }
 
-  onSelectedDate() {
-    // this.messagesService.showErrors('');
+  getDateOneMonthsFromNow(): NgbDateStruct {
+    const currentDate = new Date(); // Get the current date and time
+    currentDate.setMonth(currentDate.getMonth() + 1); // Add 1 months to the current month
+    return {
+      year: currentDate.getFullYear(),
+      month: currentDate.getMonth() + 1, // Add 1 because native Date.getMonth() is 0-indexed
+      day: currentDate.getDate(),
+    };
+  }
+
+  onSelectedDate(): void {
     this.messagesComponent.showMessages = false;
 
     if (this.checkInDate && this.checkOutDate) {
-      console.log('check-in date ' + this.checkInDate);
-      console.log('check-out date ' + this.checkOutDate);
-
       this.selectedCheckInDate = this.parseDate(this.checkInDate);
       this.selectedCheckOutDate = this.parseDate(this.checkOutDate);
 
@@ -176,9 +177,6 @@ export class RoomDetails {
       this.selectedCheckOut = this.parseDate(this.checkOutDate)
         .toISOString()
         .slice(0, 10);
-
-      console.log('check-in date ' + this.selectedCheckInDate);
-      console.log('check-out date ' + this.selectedCheckOutDate);
 
       if (this.selectedCheckOutDate <= this.selectedCheckInDate) {
         this.messagesService.showErrors(
@@ -191,5 +189,9 @@ export class RoomDetails {
         'Check-out and check-in dates are required!!'
       );
     }
+  }
+
+  get formattedTotalPrice(): string {
+    return this.currencyPipe.transform(this.totalPrice, 'ZAR') || '';
   }
 }
