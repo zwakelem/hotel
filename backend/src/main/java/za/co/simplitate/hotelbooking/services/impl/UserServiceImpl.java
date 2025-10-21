@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import za.co.simplitate.hotelbooking.dtos.*;
 import za.co.simplitate.hotelbooking.entities.Booking;
 import za.co.simplitate.hotelbooking.entities.User;
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
+import za.co.simplitate.hotelbooking.entities.repositories.UserRepository;
 import za.co.simplitate.hotelbooking.exceptions.InvalidCredentialsException;
 import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
-import za.co.simplitate.hotelbooking.repositories.BookingRepository;
-import za.co.simplitate.hotelbooking.repositories.UserRepository;
-import za.co.simplitate.hotelbooking.security.JWTUtils;
 import za.co.simplitate.hotelbooking.services.UserService;
+import za.co.simplitate.hotelbooking.services.security.JWTUtils;
 import za.co.simplitate.hotelbooking.util.GenericMapper;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;

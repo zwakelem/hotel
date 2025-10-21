@@ -2,7 +2,7 @@ package za.co.simplitate.hotelbooking.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.List;

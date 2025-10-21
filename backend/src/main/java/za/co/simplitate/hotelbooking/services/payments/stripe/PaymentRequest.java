@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.payments.stripe;
+package za.co.simplitate.hotelbooking.services.payments.stripe;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;

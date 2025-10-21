@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.security;
+package za.co.simplitate.hotelbooking.services.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import za.co.simplitate.hotelbooking.entities.User;
+import za.co.simplitate.hotelbooking.entities.repositories.UserRepository;
 import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
-import za.co.simplitate.hotelbooking.repositories.UserRepository;
 
 @Service
 @RequiredArgsConstructor

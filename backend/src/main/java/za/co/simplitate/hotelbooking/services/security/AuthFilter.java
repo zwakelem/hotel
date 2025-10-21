@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.security;
+package za.co.simplitate.hotelbooking.services.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

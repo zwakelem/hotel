@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.enums;
+package za.co.simplitate.hotelbooking.util.enums;
 
 public enum NotificationType {
     EMAIL, SMS, WHATSAPP

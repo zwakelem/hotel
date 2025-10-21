@@ -10,11 +10,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import za.co.simplitate.hotelbooking.entities.User;
+import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
+import za.co.simplitate.hotelbooking.entities.repositories.UserRepository;
 import za.co.simplitate.hotelbooking.exceptions.InvalidCredentialsException;
 import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
-import za.co.simplitate.hotelbooking.repositories.BookingRepository;
-import za.co.simplitate.hotelbooking.repositories.UserRepository;
-import za.co.simplitate.hotelbooking.security.JWTUtils;
+import za.co.simplitate.hotelbooking.services.security.JWTUtils;
 
 import java.util.ArrayList;
 import java.util.List;

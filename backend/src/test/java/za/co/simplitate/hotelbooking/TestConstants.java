@@ -1,6 +1,6 @@
 package za.co.simplitate.hotelbooking;
 
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 public class TestConstants {
 

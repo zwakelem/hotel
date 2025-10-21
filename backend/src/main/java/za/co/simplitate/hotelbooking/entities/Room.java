@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import za.co.simplitate.hotelbooking.enums.RoomType;
+import za.co.simplitate.hotelbooking.util.enums.RoomType;
 
 import java.math.BigDecimal;
 
@@ -21,6 +21,11 @@ import java.math.BigDecimal;
     SELECT r
     FROM Room r
     WHERE r.roomType = :roomType
+    """)
+@NamedQuery(name = "Room.findByDescription", query = """
+    SELECT r
+    FROM Room r
+    WHERE r.description LIKE CONCAT('%', :searchParam, '%')
     """)
 @NamedQuery(name = "Room.findByDescription", query = """
     SELECT r

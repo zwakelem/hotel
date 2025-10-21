@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 import java.time.LocalDate;
 

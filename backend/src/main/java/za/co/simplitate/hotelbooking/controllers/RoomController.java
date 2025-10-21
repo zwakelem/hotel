@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.dtos.RoomTO;
-import za.co.simplitate.hotelbooking.enums.RoomType;
 import za.co.simplitate.hotelbooking.services.RoomService;
+import za.co.simplitate.hotelbooking.util.enums.RoomType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

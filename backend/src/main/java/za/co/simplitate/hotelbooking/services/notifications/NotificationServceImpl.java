@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.notifications;
+package za.co.simplitate.hotelbooking.services.notifications;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import za.co.simplitate.hotelbooking.dtos.NotificationTO;
 import za.co.simplitate.hotelbooking.entities.Notification;
-import za.co.simplitate.hotelbooking.enums.NotificationType;
-import za.co.simplitate.hotelbooking.repositories.NotificationRepository;
+import za.co.simplitate.hotelbooking.entities.repositories.NotificationRepository;
+import za.co.simplitate.hotelbooking.util.enums.NotificationType;
 
 @Service
 @RequiredArgsConstructor

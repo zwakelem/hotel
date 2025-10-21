@@ -3,7 +3,7 @@ package za.co.simplitate.hotelbooking.services;
 import org.springframework.web.multipart.MultipartFile;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.dtos.RoomTO;
-import za.co.simplitate.hotelbooking.enums.RoomType;
+import za.co.simplitate.hotelbooking.util.enums.RoomType;
 
 import java.time.LocalDate;
 import java.util.List;

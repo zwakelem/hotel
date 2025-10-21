@@ -6,7 +6,7 @@ import za.co.simplitate.hotelbooking.dtos.UserTO;
 import za.co.simplitate.hotelbooking.entities.Booking;
 import za.co.simplitate.hotelbooking.entities.Room;
 import za.co.simplitate.hotelbooking.entities.User;
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 public class GenericMapper {
 

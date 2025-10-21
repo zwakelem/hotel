@@ -3,7 +3,7 @@ package za.co.simplitate.hotelbooking.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import za.co.simplitate.hotelbooking.entities.BookingReference;
-import za.co.simplitate.hotelbooking.repositories.BookingReferenceRepository;
+import za.co.simplitate.hotelbooking.entities.repositories.BookingReferenceRepository;
 
 import static java.lang.Math.random;
 

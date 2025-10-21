@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.notifications;
+package za.co.simplitate.hotelbooking.services.notifications;
 
 import za.co.simplitate.hotelbooking.dtos.NotificationTO;
 

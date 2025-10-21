@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import za.co.simplitate.hotelbooking.enums.PaymentGateway;
-import za.co.simplitate.hotelbooking.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.util.enums.PaymentGateway;
+import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

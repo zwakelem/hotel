@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.enums;
+package za.co.simplitate.hotelbooking.util.enums;
 
 public enum BookingStatus {
     BOOKED, CHECKED_IN, CHECKED_OUT, CANCELLED

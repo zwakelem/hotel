@@ -2,20 +2,18 @@ package za.co.simplitate.hotelbooking.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.Cache;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.dtos.RoomTO;
 import za.co.simplitate.hotelbooking.entities.Room;
-import za.co.simplitate.hotelbooking.enums.RoomType;
+import za.co.simplitate.hotelbooking.entities.repositories.RoomsRepository;
 import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
-import za.co.simplitate.hotelbooking.repositories.RoomsRepository;
 import za.co.simplitate.hotelbooking.services.RoomService;
 import za.co.simplitate.hotelbooking.util.GenericMapper;
+import za.co.simplitate.hotelbooking.util.enums.RoomType;
 
 import java.io.File;
 import java.io.IOException;
@@ -168,8 +166,8 @@ public class RoomServiceImpl implements RoomService {
     public Response getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, RoomType roomType) {
         log.info("getAvailableRooms: checkInDate={} checkOutDate={} roomType={}", checkInDate, checkOutDate, roomType);
         validateDates(checkInDate, checkOutDate);
-        List<Room> roomList = roomsRepository.findAvailableRooms(roomType);
-//        List<Room> roomList = roomsRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
+//        List<Room> roomList = roomsRepository.findAvailableRooms(roomType);
+        List<Room> roomList = roomsRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
 
         List<RoomTO> roomTOList;
         if (!roomList.isEmpty()) {

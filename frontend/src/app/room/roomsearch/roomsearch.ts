@@ -71,7 +71,7 @@ export class Roomsearch {
   }
 
   handleSearch() {
-    if (!this.startDate || !this.endDate || !this.roomType) {
+    if (!this.startDate || !this.endDate) {
       this.messageService.showErrors('Please select all fields');
       return;
     }
@@ -86,6 +86,14 @@ export class Roomsearch {
       isNaN(formattedEndDate.getTime())
     ) {
       this.messageService.showErrors('Invalid date format');
+      return;
+    }
+
+    // Check is end date is after start date
+    if (formattedEndDate <= formattedStartDate) {
+      this.messageService.showErrors(
+        'Check-out date must be after check-in date'
+      );
       return;
     }
 

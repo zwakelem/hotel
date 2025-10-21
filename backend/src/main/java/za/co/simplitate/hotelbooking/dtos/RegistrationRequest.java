@@ -2,7 +2,7 @@ package za.co.simplitate.hotelbooking.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
-import za.co.simplitate.hotelbooking.enums.UserRole;
+import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 @Builder
 public record RegistrationRequest(

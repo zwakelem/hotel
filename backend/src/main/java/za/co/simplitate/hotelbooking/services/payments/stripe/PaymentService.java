@@ -1,4 +1,4 @@
-package za.co.simplitate.hotelbooking.payments.stripe;
+package za.co.simplitate.hotelbooking.services.payments.stripe;
 
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
@@ -9,13 +9,13 @@ import za.co.simplitate.hotelbooking.dtos.NotificationTO;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.entities.Booking;
 import za.co.simplitate.hotelbooking.entities.PaymentEntity;
-import za.co.simplitate.hotelbooking.enums.NotificationType;
-import za.co.simplitate.hotelbooking.enums.PaymentGateway;
-import za.co.simplitate.hotelbooking.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
+import za.co.simplitate.hotelbooking.entities.repositories.PaymentRepository;
 import za.co.simplitate.hotelbooking.exceptions.NotFoundException;
-import za.co.simplitate.hotelbooking.notifications.NotificationService;
-import za.co.simplitate.hotelbooking.repositories.BookingRepository;
-import za.co.simplitate.hotelbooking.repositories.PaymentRepository;
+import za.co.simplitate.hotelbooking.services.notifications.NotificationService;
+import za.co.simplitate.hotelbooking.util.enums.NotificationType;
+import za.co.simplitate.hotelbooking.util.enums.PaymentGateway;
+import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

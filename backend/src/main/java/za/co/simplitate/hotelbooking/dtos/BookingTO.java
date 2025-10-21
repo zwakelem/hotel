@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import za.co.simplitate.hotelbooking.entities.Room;
 import za.co.simplitate.hotelbooking.entities.User;
-import za.co.simplitate.hotelbooking.enums.BookingStatus;
-import za.co.simplitate.hotelbooking.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.util.enums.BookingStatus;
+import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
