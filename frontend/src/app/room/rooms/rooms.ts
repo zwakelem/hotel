@@ -27,7 +27,6 @@ export class Rooms {
   ) {}
 
   ngOnInit() {
-    console.log('rooms - on init');
     this.rooms$ = this.loadingService.showLoaderUntilCompleted(
       this.apiService.getAllRooms().pipe(
         map((rooms) => rooms.sort(sortRoomsById)),
@@ -42,12 +41,6 @@ export class Rooms {
     this.filteredRooms$ = this.rooms$;
   }
 
-  handleRoomTypeChange(event: any) {
-    const selectedType = event.target.value;
-    this.selectedRoomType = selectedType;
-    this.filterRooms(selectedType);
-  }
-
   filterRooms(selectedType: string) {
     if (selectedType) {
       this.filteredRooms$ = this.rooms$.pipe(
@@ -56,5 +49,9 @@ export class Rooms {
     } else {
       this.filteredRooms$ = this.rooms$;
     }
+  }
+
+  roomSearchResults(searchResults: Observable<Room[]>) {
+    this.filteredRooms$ = searchResults;
   }
 }

@@ -2,17 +2,14 @@ package za.co.simplitate.hotelbooking.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import za.co.simplitate.hotelbooking.util.enums.UserRole;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name="users")
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

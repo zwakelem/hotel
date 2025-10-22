@@ -13,6 +13,8 @@ public interface RoomsRepository extends JpaRepository<Room, Long> {
 
     List<Room> findAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, RoomType roomType);
 
+    List<Room> findAvailableRoomsByDates(LocalDate checkInDate, LocalDate checkOutDate);
+
     List<Room> findByDescription(String searchParam);
 
     List<Room> findRoomByRoomType(RoomType roomType);

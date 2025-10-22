@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../service/api';
-import { BookingListComponent } from '../booking-list-component/booking-list-component';
-import { Booking } from '../../model/booking';
-import { EMPTY, Observable } from 'rxjs';
-import { LoadingService } from '../../service/loading.service';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { LoadingComponent } from '../../common/loading/loading.component';
+import { Booking } from '../../model/booking';
+import { ApiService } from '../../service/api';
+import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
-import { Messages } from '../../common/messages/messages';
+import { BookingListComponent } from '../booking-list-component/booking-list-component';
 
 @Component({
   selector: 'app-find-booking',
@@ -28,7 +27,6 @@ export class FindBooking {
 
   handleSearch() {
     if (!this.confirmationCode.trim()) {
-      console.log('Please enter the booking confirmation code');
       this.messagesService.showErrors(
         'Please enter the booking confirmation code'
       );
@@ -37,7 +35,12 @@ export class FindBooking {
 
     // wrap Observable with loading service call to show spinner
     this.bookingDetails$ = this.loading.showLoaderUntilCompleted(
-      this.apiService.getBookingByReference(this.confirmationCode)
+      this.apiService.getBookingByReference(this.confirmationCode).pipe(
+        catchError((err) => {
+          this.messagesService.showErrors('Could not find booking');
+          return throwError(() => new Error(err));
+        })
+      )
     );
   }
 }

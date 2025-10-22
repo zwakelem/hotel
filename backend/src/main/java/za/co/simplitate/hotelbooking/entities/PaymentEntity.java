@@ -1,10 +1,7 @@
 package za.co.simplitate.hotelbooking.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import za.co.simplitate.hotelbooking.util.enums.PaymentGateway;
 import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
 
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="payments")
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

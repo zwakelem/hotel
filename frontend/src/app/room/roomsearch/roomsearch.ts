@@ -47,9 +47,6 @@ export class Roomsearch {
   ) {}
 
   ngOnInit(): void {
-    console.log('search - on init');
-    console.log(this.getDateSixMonthsFromNow());
-
     this.minDate = this.calendar.getToday();
     this.maxDate = this.getDateSixMonthsFromNow();
 
@@ -101,23 +98,19 @@ export class Roomsearch {
     const startDateStr = formattedStartDate.toLocaleDateString('en-CA'); // 'yyyy-MM-dd'
     const endDateStr = formattedEndDate.toLocaleDateString('en-CA'); // 'yyyy-MM-dd'
 
-    console.log('formattedStartDate: ' + startDateStr);
-    console.log('formattedEndDate: ' + endDateStr);
-    console.log('roomType: ' + this.roomType);
-
     this.apiService
       .getAvailableRooms(startDateStr, endDateStr, this.roomType)
       .subscribe({
         next: (resp: any) => {
-          if (resp.rooms.length === 0) {
+          if (resp.length === 0) {
             this.messageService.showErrors(
               'Room type not currently available for the selected date'
             );
             return;
           }
           console.log('rooms found');
-          console.log(resp.rooms);
-          this.searchResults.emit(resp.rooms); // Emit the room data
+          console.log(resp);
+          this.searchResults.emit(resp); // Emit the room data
           this.error = ''; // Clear any previous errors
         },
         error: (error: any) => {

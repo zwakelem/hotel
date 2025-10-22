@@ -2,17 +2,14 @@ package za.co.simplitate.hotelbooking.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import za.co.simplitate.hotelbooking.util.enums.NotificationType;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="notifications")
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

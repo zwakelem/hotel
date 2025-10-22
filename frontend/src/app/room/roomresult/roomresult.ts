@@ -27,7 +27,6 @@ export class Roomresult {
   }
 
   navigateToRoomDetails(roomId: number) {
-    console.log('room id' + roomId);
     this.router.navigate([`/rooms-details/${roomId}`]);
   }
 }

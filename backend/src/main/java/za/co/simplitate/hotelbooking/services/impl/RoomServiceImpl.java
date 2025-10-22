@@ -166,10 +166,15 @@ public class RoomServiceImpl implements RoomService {
     public Response getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, RoomType roomType) {
         log.info("getAvailableRooms: checkInDate={} checkOutDate={} roomType={}", checkInDate, checkOutDate, roomType);
         validateDates(checkInDate, checkOutDate);
-//        List<Room> roomList = roomsRepository.findAvailableRooms(roomType);
-        List<Room> roomList = roomsRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
-
         List<RoomTO> roomTOList;
+        List<Room> roomList;
+
+        if(roomType == null) {
+            roomList = roomsRepository.findAvailableRoomsByDates(checkInDate, checkOutDate);
+        } else {
+            roomList = roomsRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
+        }
+
         if (!roomList.isEmpty()) {
             roomTOList = roomList.parallelStream()
                     .map(GenericMapper::mapToRoomTO)
