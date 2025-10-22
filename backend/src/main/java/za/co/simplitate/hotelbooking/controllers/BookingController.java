@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import za.co.simplitate.hotelbooking.dtos.BookingRequestTO;
 import za.co.simplitate.hotelbooking.dtos.BookingTO;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.services.BookingService;
@@ -24,8 +25,8 @@ public class BookingController {
     }
 
     @PostMapping()
-    public ResponseEntity<Response> createBooking(@RequestBody BookingTO bookingTO) {
-        return ResponseEntity.ok(bookingService.createBooking(bookingTO));
+    public ResponseEntity<Response> createBooking(@RequestBody BookingRequestTO bookingRequestTO) {
+        return ResponseEntity.ok(bookingService.createBooking(bookingRequestTO));
     }
 
     @GetMapping("/{reference}")

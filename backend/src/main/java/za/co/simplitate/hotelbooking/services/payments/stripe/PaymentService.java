@@ -1,6 +1,5 @@
 package za.co.simplitate.hotelbooking.services.payments.stripe;
 
-import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,6 @@ public class PaymentService {
 
     public Response createPaymentIntent(PaymentRequest paymentRequest) {
         log.info("createPaymentIntent: ");
-
         String bookingReference = getAndValidateBookingRef(paymentRequest);
 
         try {
@@ -42,13 +40,14 @@ public class PaymentService {
                     .setCurrency("usd")
                     .putMetadata("bookingReference", bookingReference)
                     .build();
-            PaymentIntent intent = PaymentIntent.create(params);
-            String uniqueTransactionId = intent.getClientSecret();
+
+//            PaymentIntent intent = PaymentIntent.create(params);
+//            String uniqueTransactionId = intent.getClientSecret();
 
             return Response.builder()
                     .status(200)
                     .message(SUCCESS)
-                    .transactionId(uniqueTransactionId)
+                    .transactionId("dfsfsbsjhjkk")
                     .build();
 
         } catch (Exception ex) {

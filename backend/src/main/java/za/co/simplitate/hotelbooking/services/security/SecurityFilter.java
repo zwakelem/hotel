@@ -25,9 +25,7 @@ import za.co.simplitate.hotelbooking.util.exceptions.CustomAuthenticationEntryPo
 public class SecurityFilter {
 
     private final AuthFilter authFilter;
-
     private final CustomAccessDenialHandler customAccessDenialHandler;
-
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean

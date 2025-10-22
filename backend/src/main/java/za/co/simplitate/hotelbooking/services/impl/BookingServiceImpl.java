@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import za.co.simplitate.hotelbooking.dtos.BookingRequestTO;
 import za.co.simplitate.hotelbooking.dtos.BookingTO;
 import za.co.simplitate.hotelbooking.dtos.NotificationTO;
 import za.co.simplitate.hotelbooking.dtos.Response;
@@ -66,26 +67,24 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Response createBooking(BookingTO bookingTO) {
+    public Response createBooking(BookingRequestTO bookingRequestTO) {
         log.info("createBooking: ");
+        validateDates(bookingRequestTO.checkInDate(), bookingRequestTO.checkOutDate());
+        checkRoomAvailability(bookingRequestTO);
         User currentUser = userService.getCurrentLoggedInUser();
 
-        Long roomId = bookingTO.room().getId();
-        Room room = roomsRepository.findById(roomId)
+        Room room = roomsRepository.findById(bookingRequestTO.roomId())
                 .orElseThrow(() -> {
-                    var message = String.format(ROOM_NOT_FOUND, roomId);
+                    var message = String.format(ROOM_NOT_FOUND, bookingRequestTO.roomId());
                     log.warn(message);
                     return new NotFoundException(message);
                 });
 
-        validateDates(bookingTO.checkInDate(), bookingTO.checkOutDate());
-        checkRoomAvailability(bookingTO, room);
-
-        BigDecimal totalPrice = calculateTotalPrice(room, bookingTO);
+        BigDecimal totalPrice = calculateTotalPrice(room, bookingRequestTO);
         String bookingRef = bookingCodeGenerator.generateBookingReference();
-        Booking booking = createBooking(bookingTO, currentUser, room, totalPrice, bookingRef);
+        Booking booking = createBooking(bookingRequestTO, currentUser, room, totalPrice, bookingRef);
         Booking persistedBooking = bookingRepository.save(booking);
-        bookingTO = GenericMapper.mapToBookingTO(persistedBooking);
+        BookingTO bookingTO = GenericMapper.mapToBookingTO(persistedBooking);
 
         String paymentLink = "http://localhost:4200/payment" + bookingRef + "/" + totalPrice;
         log.info("Booking payment link {}", paymentLink);
@@ -114,13 +113,13 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
-    private static Booking createBooking(BookingTO bookingTO, User currentUser, Room room,
+    private static Booking createBooking(BookingRequestTO bookingRequestTO, User currentUser, Room room,
                                          BigDecimal totalPrice, String bookingRef) {
         return Booking.builder()
                 .user(currentUser)
                 .room(room)
-                .checkInDate(bookingTO.checkInDate())
-                .checkOutDate(bookingTO.checkOutDate())
+                .checkInDate(bookingRequestTO.checkInDate())
+                .checkOutDate(bookingRequestTO.checkOutDate())
                 .totalPrice(totalPrice)
                 .bookingReference(bookingRef)
                 .paymentStatus(PaymentStatus.PENDING)
@@ -129,17 +128,18 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
-    private void checkRoomAvailability(BookingTO bookingTO, Room room) {
-        boolean isAvaiable = bookingRepository.isRoomAvailable(room.getId(), bookingTO.checkInDate(),
-                bookingTO.checkOutDate());
+    private void checkRoomAvailability(BookingRequestTO bookingRequestTO) {
+        boolean isAvaiable = bookingRepository.isRoomAvailable(bookingRequestTO.roomId(),
+                                                                bookingRequestTO.checkInDate(),
+                                                                bookingRequestTO.checkOutDate());
         if(!isAvaiable) {
             throw new InvalidBookingStateException("Room is not available to be booked");
         }
     }
 
-    private BigDecimal calculateTotalPrice(Room room, BookingTO bookingTO) {
+    private BigDecimal calculateTotalPrice(Room room, BookingRequestTO bookingRequestTO) {
         BigDecimal pricePerNight = room.getPricePerNight();
-        long days = ChronoUnit.DAYS.between(bookingTO.checkInDate(), bookingTO.checkOutDate());
+        long days = ChronoUnit.DAYS.between(bookingRequestTO.checkInDate(), bookingRequestTO.checkOutDate());
         return pricePerNight.multiply(BigDecimal.valueOf(days));
     }
 
