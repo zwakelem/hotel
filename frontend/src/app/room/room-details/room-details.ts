@@ -99,21 +99,17 @@ export class RoomDetails {
     const formarttedCheckInDate = this.parseDate(this.checkInDate);
     const formarttedCheckOutDate = this.parseDate(this.checkOutDate);
 
-    const booking = {
-      checkInDate: formarttedCheckInDate,
-      checkOutDate: formarttedCheckOutDate,
-      id: this.roomId,
+    const bookingRequest = {
+      checkInDate: formarttedCheckInDate.toISOString().slice(0, 10),
+      checkOutDate: formarttedCheckOutDate.toISOString().slice(0, 10),
+      roomId: this.roomId,
     };
 
-    this.apiService.bookRoom(booking).subscribe({
+    this.apiService.bookRoom(bookingRequest).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
           this.message =
             'Your booking was successful. A payment link will be emailed to you!!';
-          setTimeout(() => {
-            this.message = null;
-            this.router.navigate(['/rooms']);
-          }, 8000);
         }
       },
       error: (err) => {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import CryptoJS from 'crypto-js';
 import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 import { Booking } from '../model/booking';
+import { BookingRequest } from '../model/bookingRequest';
 import { Response } from '../model/response';
 import { Room } from '../model/room';
 import { User } from '../model/user';
@@ -174,10 +175,12 @@ export class ApiService {
    * BOOKINGS API
    *****************************/
 
-  bookRoom(booking: any): Observable<any> {
-    return this.http.post(`${Constants.BASE_URL}/bookings`, booking, {
-      headers: this.getHeader(),
-    });
+  bookRoom(bookingRequest: BookingRequest): Observable<Booking> {
+    return this.http
+      .post<Response>(`${Constants.BASE_URL}/bookings`, bookingRequest, {
+        headers: this.getHeader(),
+      })
+      .pipe(map((res) => res['booking']));
   }
 
   getAllBookings(): Observable<Booking[]> {

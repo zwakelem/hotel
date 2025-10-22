@@ -55,7 +55,7 @@ export const routes: Routes = [
     canActivate: [Guard],
   },
   {
-    path: 'payment-success',
+    path: 'payment-success/:bookingReference',
     component: PaymentSuccessComponent,
     canActivate: [Guard],
   },
