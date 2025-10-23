@@ -1,1 +1,80 @@
-<p>add-room-component works!</p>
+<div class="container min-vh-100 d-flex justify-content-center mt-5">
+  <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+
+      <div class="card-title">
+        <h3 class="text-center h3 my-3">Add new room</h3>
+      </div>
+
+      <div class="card-body">
+        <form (ngSubmit)="addRoom()">
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Upload room photo</label>
+            <input 
+              name="roomPhoto" 
+              class="form-control" 
+              type="file" 
+              id="formFile"
+              (change)="handleFileChange($event)">
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select"
+              name="roomType"
+              [(ngModel)]="roomDetails.roomType">
+              <option selected value="">All Room Types</option>
+              @for (type of roomTypes$ | async; track type) {
+                <option [value]="type">
+                  {{ type }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="pricePerNight"
+              type="number"
+              class="form-control"
+              required
+              [(ngModel)]="roomDetails.pricePerNight"
+              placeholder="00.00" />
+            <label class="form-label">Room Price</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="roomNumber"
+              type="number"
+              class="form-control"
+              required
+              [(ngModel)]="roomDetails.roomNumber"
+              placeholder="101">
+            <label class="form-label">Room Number</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="capacity"
+              type="number"
+              class="form-control"
+              required
+              [(ngModel)]="roomDetails.capacity"
+              placeholder="1">
+            <label class="form-label">Capacity</label>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button
+              type="submit"
+              class="btn btn-success">
+              Add Room
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

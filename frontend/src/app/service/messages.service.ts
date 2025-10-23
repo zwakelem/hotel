@@ -4,13 +4,22 @@ import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class MessagesService {
-  private subject = new BehaviorSubject<string[]>([]);
+  private errorsSubject = new BehaviorSubject<string[]>([]);
+  private successSubject = new BehaviorSubject<string[]>([]);
 
-  errors$: Observable<string[]> = this.subject
+  errors$: Observable<string[]> = this.errorsSubject
+    .asObservable()
+    .pipe(filter((messages) => messages && messages.length > 0));
+
+  success$: Observable<string[]> = this.successSubject
     .asObservable()
     .pipe(filter((messages) => messages && messages.length > 0));
 
   showErrors(...errors: string[]) {
-    this.subject.next(errors);
+    this.errorsSubject.next(errors);
+  }
+
+  showSuccess(...message: string[]) {
+    this.successSubject.next(message);
   }
 }

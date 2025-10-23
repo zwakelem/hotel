@@ -154,8 +154,8 @@ export class ApiService {
     });
   }
 
-  addRoom(formData: any): Observable<any> {
-    return this.http.post(`${Constants.BASE_URL}/rooms/add`, formData, {
+  addRoom(formData: any): Observable<Response> {
+    return this.http.post<Response>(`${Constants.BASE_URL}/rooms/add`, formData, {
       headers: this.getHeader(),
     });
   }

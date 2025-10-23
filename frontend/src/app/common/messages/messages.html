@@ -1,9 +1,9 @@
-@if(errors$ | async; as errors) {
+@if(showMessages) {
 
-  @if(showMessages) {
+  @if(messageType == 'error') {
 
-    @for(error of errors; track error) {
-
+    @for(error of errors$ | async; track error) {
+    
       <div class="alert alert-danger alert-dismissible fade show w-100 p-0" role="alert">
         <p class="text-center pt-3 pe-5 ps-2">{{ error }}</p>
         <button
@@ -13,6 +13,23 @@
           (click)="onClose()"
           aria-label="Close"></button>
       </div>
+    
+    }
+
+  } @else if(messageType == 'success') {
+
+    @for(success of success$ | async; track success) {
+
+      <div class="alert alert-success alert-dismissible fade show w-100 p-0" role="alert">
+        <p class="text-center pt-3 pe-5 ps-2">{{ success }}</p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          (click)="onClose()"
+          aria-label="Close"></button>
+      </div>
+
     }
 
   }

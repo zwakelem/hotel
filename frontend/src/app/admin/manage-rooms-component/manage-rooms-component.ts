@@ -16,6 +16,7 @@ import { MessagesService } from '../../service/messages.service';
   styleUrl: './manage-rooms-component.css',
 })
 export class ManageRoomsComponent {
+
   rooms$: Observable<Room[]> = EMPTY;
   filteredRooms$: Observable<Room[]> = EMPTY;
   roomTypes$: Observable<string[]> = EMPTY;
@@ -78,18 +79,8 @@ export class ManageRoomsComponent {
     }
   }
 
-  // Filter rooms by type
-  // filterRooms(type: string) {
-  //   if (type === '') {
-  //     this.filteredRooms = this.rooms;
-  //   } else {
-  //     this.filteredRooms = this.rooms.filter((room) => room.type === type);
-  //   }
-  //   this.currentPage = 1; // Reset to first page when filter changes
-  // }
-
   // Navigate to Add Room page
-  navigateToAddRoom() {
+  addRoom() {
     this.router.navigate(['/admin/add-room']);
   }
 }

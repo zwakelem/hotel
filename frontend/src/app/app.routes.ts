@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AddRoomComponent } from './admin/add-room-component/add-room-component';
 import { AdminHomeComponent } from './admin/admin-home-component/admin-home-component';
 import { ManageRoomsComponent } from './admin/manage-rooms-component/manage-rooms-component';
 import { FindBooking } from './booking/find-booking/find-booking';
@@ -35,6 +36,7 @@ export const routes: Routes = [
   
   {path: 'admin', component: AdminHomeComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   {path: 'admin/manage-rooms', component: ManageRoomsComponent, canActivate: [Guard], data: {requiresAdmin: true} },
+  {path: 'admin/add-room', component: AddRoomComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   
   {path: '**', redirectTo: 'home'},
 ];
