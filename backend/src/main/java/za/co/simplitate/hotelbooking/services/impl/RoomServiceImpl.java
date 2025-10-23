@@ -11,6 +11,7 @@ import za.co.simplitate.hotelbooking.dtos.RoomTO;
 import za.co.simplitate.hotelbooking.entities.Room;
 import za.co.simplitate.hotelbooking.entities.repositories.RoomsRepository;
 import za.co.simplitate.hotelbooking.services.RoomService;
+import za.co.simplitate.hotelbooking.services.S3Service;
 import za.co.simplitate.hotelbooking.util.GenericMapper;
 import za.co.simplitate.hotelbooking.util.enums.RoomType;
 import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
@@ -32,6 +33,7 @@ import static za.co.simplitate.hotelbooking.util.CommonUtil.validateDates;
 public class RoomServiceImpl implements RoomService {
 
     private final RoomsRepository roomsRepository;
+    private final S3Service s3Service;
 
 
     private static final String  IMAGE_DIR = System.getProperty("user.dir") + "/product-image/";
@@ -44,9 +46,9 @@ public class RoomServiceImpl implements RoomService {
 
             String imagePath = null;
             try {
-                imagePath = saveImage(imageFile);
+                imagePath = s3Service.uploadFile(imageFile);
             } catch (Exception e) {
-                log.warn("addRoom: could not add room image");
+                log.warn("addRoom: could not add room image", e);
             }
             roomEntity.setImageUrl(imagePath);
         }
@@ -72,7 +74,7 @@ public class RoomServiceImpl implements RoomService {
         if(imageFile != null && !imageFile.isEmpty()) {
             String imagePath = "";
             try {
-                imagePath = saveImage(imageFile);
+                imagePath = s3Service.uploadFile(imageFile);
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
