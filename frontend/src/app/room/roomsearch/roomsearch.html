@@ -48,9 +48,9 @@
         <div>
           <select class="form-select" [(ngModel)]="roomType" (change)="filterByTypes()">
             <option selected value="">All Room Types</option>
-            @for (tp of roomTypes$ | async; track tp) {
-            <option [value]="tp">
-              {{ tp }}
+            @for (type of roomTypes$ | async; track type) {
+            <option [value]="type">
+              {{ type }}
             </option>
             }
           </select>

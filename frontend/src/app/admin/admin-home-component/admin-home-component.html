@@ -1,0 +1,13 @@
+<div class="admin">
+  @if(adminUser$ | async; as user) {
+
+    <h1>Welcome, {{ user.firstName }}</h1>
+    <div class="actions">
+      <button (click)="navigateToManageRooms()">Manage Rooms</button>
+      <button (click)="navigateToManageBookings()">Manage Bookings</button>
+    </div>
+
+  }
+  
+
+</div>

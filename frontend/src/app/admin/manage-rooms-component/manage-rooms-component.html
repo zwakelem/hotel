@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+
+    <h2 class="h2 text-center mt-5">All Rooms</h2>
+    
+    <!-- Filter and Add Room Section -->
+    <div class="d-flex justify-content-between">
+
+      <div class="col-md-3 col-sm-6">
+        <select class="form-select" 
+          [(ngModel)]="selectedRoomType" 
+          (change)="handleRoomTypeChange()">
+          <option selected value="">All Room Types</option>
+          @for (type of roomTypes$ | async; track type) {
+          <option [value]="type">
+            {{ type }}
+          </option>
+          }
+        </select>
+      </div>
+      
+      <div>
+        <button class="btn btn-success">Add Room</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <!-- Room Result Component -->
+    <app-roomresult [roomSearchResults$]="filteredRooms$"></app-roomresult>
+  </div>
+
+</div>
