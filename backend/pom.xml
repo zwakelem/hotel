@@ -22,6 +22,7 @@
 		<stripe.version>28.4.0</stripe.version>
 		<modelmapper.version>2.4.4</modelmapper.version>
 		<modelmapper-module-version>1.0.0</modelmapper-module-version>
+		<aws.sdk.version>2.20.0</aws.sdk.version>
 	</properties>
 
 	<dependencies>
@@ -92,6 +93,13 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper-module-record</artifactId>
 			<version>${modelmapper-module-version}</version>
+		</dependency>
+
+		<!-- AWS S3 dependency -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>${aws.sdk.version}</version>
 		</dependency>
 
 		<!-- test dependencies -->
