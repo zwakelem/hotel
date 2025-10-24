@@ -1,11 +1,12 @@
-@if(errors$ | async; as errors) {
+@if(messages$ | async; as messages) {
 
   @if(showMessages) {
 
-    @for(error of errors; track error) {
+    @for(message of messages; track message.message) {
 
-      <div class="alert alert-danger alert-dismissible fade show w-100 p-0" role="alert">
-        <p class="text-center pt-3">{{ error }}</p>
+    <div class="alert alert-dismissible fade show w-100 p-0" role="alert"
+      [ngClass]="{'alert-danger': message.type == 'error', 'alert-success': message.type == 'success'}">
+      <p class="text-center pt-3">{{ message.message }}</p>
         <button
           type="button"
           class="btn-close"

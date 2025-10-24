@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
+import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
 
@@ -38,7 +39,7 @@ export class Login {
         }
       },
       error: (err: any) => {
-        this.MessagesService.showErrors('Unable to login user!!');
+        this.MessagesService.showMessages(new MessageAlert('Unable to login user!!', 'error'));
       },
     });
   }

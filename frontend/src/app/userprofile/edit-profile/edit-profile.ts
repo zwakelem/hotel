@@ -3,10 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from '../../service/api';
-import { User } from '../../model/user';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageAlert } from '../../model/messageAlert';
+import { User } from '../../model/user';
+import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
 
 @Component({
@@ -55,7 +56,7 @@ export class EditProfile {
         this.router.navigate(['/profile']);
       },
       error: (err) => {
-        this.messagesService.showErrors('Error while updating user profile!!');
+        this.messagesService.showMessages(new MessageAlert('Error while updating user profile!!', 'error'));
       },
     });
   }

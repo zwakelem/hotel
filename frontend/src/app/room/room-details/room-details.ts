@@ -9,6 +9,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { EMPTY, Observable } from 'rxjs';
 import { Messages } from '../../common/messages/messages';
+import { MessageAlert } from '../../model/messageAlert';
 import { Room } from '../../model/room';
 import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
@@ -74,7 +75,7 @@ export class RoomDetails {
     const checkOut = this.parseDate(this.checkOutDate);
 
     if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
-      this.messagesService.showErrors('Invalid date selected!!');
+      this.messagesService.showMessages(new MessageAlert('Invalid date selected!!', 'error'));
       return 0;
     }
 
@@ -113,8 +114,8 @@ export class RoomDetails {
         }
       },
       error: (err) => {
-        this.messagesService.showErrors(
-          err?.error?.message || 'Unable to make a booking.'
+        this.messagesService.showMessages(new MessageAlert(
+          err?.error?.message || 'Unable to make a booking.', 'error')
         );
       },
     });
@@ -175,14 +176,14 @@ export class RoomDetails {
         .slice(0, 10);
 
       if (this.selectedCheckOutDate <= this.selectedCheckInDate) {
-        this.messagesService.showErrors(
-          'Check-out date must be after check-in date'
+        this.messagesService.showMessages(new MessageAlert(
+          'Check-out date must be after check-in date', 'error')
         );
         return;
       }
     } else {
-      this.messagesService.showErrors(
-        'Check-out and check-in dates are required!!'
+      this.messagesService.showMessages(new MessageAlert(
+        'Check-out and check-in dates are required!!', 'error')
       );
     }
   }

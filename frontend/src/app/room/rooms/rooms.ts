@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MessageAlert } from '../../model/messageAlert';
 import { Room, sortRoomsById } from '../../model/room';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
@@ -32,7 +33,7 @@ export class Rooms {
         map((rooms) => rooms.sort(sortRoomsById)),
         catchError((err) => {
           const message = 'Could not load rooms';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })

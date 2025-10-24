@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
@@ -50,7 +51,7 @@ export class AddRoomComponent {
         map((types) => types),
         catchError((err) => {
           const message = 'Could not load rooms';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })
@@ -91,7 +92,7 @@ export class AddRoomComponent {
       !this.roomDetails.capacity ||
       !this.roomDetails.roomNumber
     ) {
-      this.messageService.showErrors('All room details must be provided.');
+      this.messageService.showMessages(new MessageAlert('All room details must be provided.', 'error'));
       return;
     }
 
@@ -115,13 +116,13 @@ export class AddRoomComponent {
       next: (res: any) => {
         if (res.status === 200) {
           const message = 'Room addded successfully!!';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           this.router.navigate(['/admin/manage-rooms']);
         }
       },
       error: (err) => {
-        this.messageService.showErrors(
-          err?.error?.message || 'Unable to make a booking.'
+        this.messageService.showMessages(new MessageAlert(
+          err?.error?.message || 'Unable to make a booking.', 'error')
         );
         return throwError(() => new Error(err));
       },

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
 
@@ -33,7 +34,7 @@ export class Register {
       !this.formData.phoneNumber ||
       !this.formData.password
     ) {
-      this.messagesService.showErrors('All fields are required!');
+      this.messagesService.showMessages(new MessageAlert('All fields are required!', 'error'));
       return;
     }
 
@@ -42,7 +43,7 @@ export class Register {
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        this.messagesService.showErrors('Unable to register user!!');
+        this.messagesService.showMessages(new MessageAlert('Unable to register user!!', 'error'));
       },
     });
   }

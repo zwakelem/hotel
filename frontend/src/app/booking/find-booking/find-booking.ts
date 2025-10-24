@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { LoadingComponent } from '../../common/loading/loading.component';
 import { Booking } from '../../model/booking';
+import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
@@ -27,8 +28,8 @@ export class FindBooking {
 
   handleSearch() {
     if (!this.confirmationCode.trim()) {
-      this.messagesService.showErrors(
-        'Please enter the booking confirmation code'
+      this.messagesService.showMessages(
+        new MessageAlert('Please enter the booking confirmation code', 'error')
       );
       return;
     }
@@ -37,7 +38,7 @@ export class FindBooking {
     this.bookingDetails$ = this.loading.showLoaderUntilCompleted(
       this.apiService.getBookingByReference(this.confirmationCode).pipe(
         catchError((err) => {
-          this.messagesService.showErrors('Could not find booking');
+          this.messagesService.showMessages(new MessageAlert('Could not find booking', 'error'));
           return throwError(() => new Error(err));
         })
       )

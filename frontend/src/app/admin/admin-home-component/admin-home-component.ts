@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { MessageAlert } from '../../model/messageAlert';
 import { User } from '../../model/user';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
@@ -34,7 +35,7 @@ export class AdminHomeComponent {
         map((user: User) => user),
         catchError((err) => {
           const message = 'Could not retrieve admin user details';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })

@@ -10,6 +10,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
 import { Messages } from '../../common/messages/messages';
+import { MessageAlert } from '../../model/messageAlert';
 import { Room } from '../../model/room';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
@@ -56,7 +57,7 @@ export class Roomsearch {
         map((types) => types),
         catchError((err) => {
           const message = 'Could not load room types';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })
@@ -70,7 +71,7 @@ export class Roomsearch {
 
   handleSearch() {
     if (!this.startDate || !this.endDate) {
-      this.messageService.showErrors('Please select all fields');
+      this.messageService.showMessages(new MessageAlert('Please select all fields', 'error'));
       return;
     }
 
@@ -83,14 +84,14 @@ export class Roomsearch {
       isNaN(formattedStartDate.getTime()) ||
       isNaN(formattedEndDate.getTime())
     ) {
-      this.messageService.showErrors('Invalid date format');
+      this.messageService.showMessages(new MessageAlert('Invalid date format', 'error'));
       return;
     }
 
     // Check is end date is after start date
     if (formattedEndDate <= formattedStartDate) {
-      this.messageService.showErrors(
-        'Check-out date must be after check-in date'
+      this.messageService.showMessages(
+        new MessageAlert('Check-out date must be after check-in date', 'error')
       );
       return;
     }
@@ -104,8 +105,8 @@ export class Roomsearch {
       .subscribe({
         next: (resp: any) => {
           if (resp.length === 0) {
-            this.messageService.showErrors(
-              'Room type not currently available for the selected date'
+            this.messageService.showMessages(
+              new MessageAlert('Room type not currently available for the selected date', 'error')
             );
             return;
           }
@@ -115,8 +116,8 @@ export class Roomsearch {
           this.error = ''; // Clear any previous errors
         },
         error: (error: any) => {
-          this.messageService.showErrors(
-            error?.error?.message || error.message
+          this.messageService.showMessages(
+            new MessageAlert(error?.error?.message || error.message, 'error')
           );
         },
       });

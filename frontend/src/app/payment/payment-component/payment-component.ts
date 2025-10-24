@@ -8,6 +8,7 @@ import {
   StripeCardElement,
   StripeElements,
 } from '@stripe/stripe-js';
+import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { MessagesService } from '../../service/messages.service';
 import { Constants } from '../../util/Constants';
@@ -67,8 +68,8 @@ export class PaymentComponent {
         );
       },
       error: (err: any) => {
-        this.messagesService.showErrors(
-          'Failed to fetch transaction unique secret!!'
+        this.messagesService.showMessages(new MessageAlert(
+          'Failed to fetch transaction unique secret!!', 'error')
         );
       },
     });
@@ -113,8 +114,8 @@ export class PaymentComponent {
         console.log(res);
       },
       error: (err) => {
-        this.messagesService.showErrors(
-          err?.error?.message || err?.message || 'Error updating payment status'
+        this.messagesService.showMessages(new MessageAlert(
+          err?.error?.message || err?.message || 'Error updating payment status', 'error')
         );
         console.error(err);
       },

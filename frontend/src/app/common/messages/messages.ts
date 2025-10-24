@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EMPTY, Observable, tap } from 'rxjs';
+import { MessageAlert } from '../../model/messageAlert';
 import { MessagesService } from '../../service/messages.service';
 
 @Component({
@@ -12,12 +13,12 @@ import { MessagesService } from '../../service/messages.service';
 export class Messages {
   //TODO: make it reusable for error or success or warn messages
   showMessages = false;
-  errors$: Observable<string[]> = EMPTY;
+  messages$: Observable<MessageAlert[]> = EMPTY;
 
   constructor(public messagesService: MessagesService) {}
 
   ngOnInit() {
-    this.errors$ = this.messagesService.errors$.pipe(
+    this.messages$ = this.messagesService.messages$.pipe(
       tap(() => (this.showMessages = true))
     );
   }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { MessageAlert } from '../../model/messageAlert';
 import { Room, sortRoomsById } from '../../model/room';
 import { Roomresult } from '../../room/roomresult/roomresult';
 import { ApiService } from '../../service/api';
@@ -41,7 +42,7 @@ export class ManageRoomsComponent {
         map((rooms) => rooms.sort(sortRoomsById)),
         catchError((err) => {
           const message = 'Could not load rooms';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })
@@ -57,7 +58,7 @@ export class ManageRoomsComponent {
         map((types) => types),
         catchError((err) => {
           const message = 'Could not load rooms';
-          this.messageService.showErrors(message);
+          this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
         })
