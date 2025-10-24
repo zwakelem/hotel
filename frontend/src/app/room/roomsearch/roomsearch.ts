@@ -9,7 +9,6 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
-import { Messages } from '../../common/messages/messages';
 import { MessageAlert } from '../../model/messageAlert';
 import { Room } from '../../model/room';
 import { ApiService } from '../../service/api';
@@ -18,7 +17,7 @@ import { MessagesService } from '../../service/messages.service';
 
 @Component({
   selector: 'app-roomsearch',
-  imports: [CommonModule, FormsModule, NgbModule, NgbDatepickerModule, Messages],
+  imports: [CommonModule, FormsModule, NgbModule, NgbDatepickerModule],
   templateUrl: './roomsearch.html',
   styleUrl: './roomsearch.css',
 })

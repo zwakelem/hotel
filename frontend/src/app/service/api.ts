@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import CryptoJS from 'crypto-js';
-import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, map, Observable, shareReplay, tap } from 'rxjs';
 import { Booking } from '../model/booking';
 import { BookingRequest } from '../model/bookingRequest';
 import { Response } from '../model/response';
@@ -121,6 +121,7 @@ export class ApiService {
   getAllRooms(): Observable<Room[]> {
     return this.http.get<Response>(`${Constants.BASE_URL}/rooms/all`).pipe(
       map((res) => res['rooms']),
+      tap((rooms) => console.log('number of rooms retrieved=' + rooms.length)),
       shareReplay()
     );
   }

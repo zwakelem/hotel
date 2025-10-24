@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
 import { MessageAlert } from '../../model/messageAlert';
+import { Response } from '../../model/response';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
@@ -25,13 +26,9 @@ export class AddRoomComponent {
   };
 
   roomTypes$: Observable<string[]> = EMPTY;
-  newRoomType: string = '';
 
   file: File | null = null;
   preview: string | null = null;
-
-  error: any = null;
-  success: string = '';
 
   constructor(
     private apiService: ApiService,
@@ -96,6 +93,7 @@ export class AddRoomComponent {
       return;
     }
 
+    // TODO: use bootstrap modal here
     if (!window.confirm('Do you want to add this room?')) {
       return;
     }
@@ -105,19 +103,19 @@ export class AddRoomComponent {
     formData.append('pricePerNight', this.roomDetails.pricePerNight);
     formData.append('capacity', this.roomDetails.capacity);
     formData.append('roomNumber', this.roomDetails.roomNumber);
-    formData.append('description', 'this is just a description');
-    // formData.append('description', this.roomDetails.description);
+    formData.append('description', this.roomDetails.description);
 
     if (this.file) {
       formData.append('imageFile', this.file);
     }
 
     this.apiService.addRoom(formData).subscribe({
-      next: (res: any) => {
-        if (res.status === 200) {
+      next: (res: Response) => {
+        if (res['status'] == 201) {
+          this.resetForm();
           const message = 'Room addded successfully!!';
-          this.messageService.showMessages(new MessageAlert(message, 'error'));
-          this.router.navigate(['/admin/manage-rooms']);
+          this.messageService.showMessages(new MessageAlert(message, 'success'));
+          // this.router.navigate(['/admin/manage-rooms']);
         }
       },
       error: (err) => {
@@ -128,5 +126,17 @@ export class AddRoomComponent {
       },
     });
 
+  }
+
+  resetForm() {
+    this.file = null;
+    this.roomDetails = {
+      imageUrl: null,
+      roomType: '',
+      roomNumber: '',
+      pricePerNight: '',
+      capacity: '',
+      description: '',
+    };
   }
 }
