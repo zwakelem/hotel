@@ -107,6 +107,7 @@ export class ApiService {
    *****************************/
 
   deleteRoom(roomId: string): Observable<any> {
+    console.log('delete room api id=' + roomId);
     return this.http.delete(`${Constants.BASE_URL}/rooms/delete/${roomId}`, {
       headers: this.getHeader(),
     });

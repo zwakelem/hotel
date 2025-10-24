@@ -78,16 +78,20 @@
               name="description"
               class="form-control"
               placeholder="Add a description"
-              style="height: 100px"
+              style="height: 150px"
               maxlength="500"
               [(ngModel)]="room.description"></textarea>
             <label class="form-label">Description</label>
           </div>
 
-          <div class="d-grid gap-2">
+          <div class="d-grid gap-2 d-inline-flex">
             <button
               type="submit"
               class="btn btn-success">Update Room</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="deleteRoom()">Delete Room</button>
           </div>
         </form>
       </div>

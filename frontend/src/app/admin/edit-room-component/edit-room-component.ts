@@ -93,7 +93,7 @@ export class EditRoomComponent {
       !this.room?.pricePerNight ||
       !this.room?.capacity ||
       !this.room?.roomNumber ||
-      !this.room?.imageUrl 
+      !this.room?.imageUrl
     ) {
       this.messageService.showMessages(
         new MessageAlert('All room details must be provided.', 'error')
@@ -118,6 +118,7 @@ export class EditRoomComponent {
       formData.append('imageFile', this.file);
     }
 
+    //TODO: ???
     this.apiService.updateRoom(formData).subscribe(
       (res: any) => {
         if (res['status'] == 204) {
@@ -136,7 +137,59 @@ export class EditRoomComponent {
           )
         );
         return throwError(() => new Error(err));
-      },
+      }
     );
+  }
+
+  deleteRoom() {
+    console.log('delete room');
+    // TODO: use bootstrap modal here
+    if (!window.confirm('Do you want to add this room?')) {
+      return;
+    }
+
+    this.apiService.deleteRoom(this.roomId).subscribe({
+      next: (res) => {
+        if (res['status'] == 204) {
+          const message = 'Room deleted successfully!!';
+          this.messageService.showMessages(
+            new MessageAlert(message, 'success')
+          );
+          this.resetForm();
+          // this.router.navigate(['/admin/manage-rooms']);
+        }
+      },
+      error: (err) => {
+        const message = 'Could not delete room';
+        this.messageService.showMessages(new MessageAlert(message, 'error'));
+        console.log(message, err);
+        return throwError(() => new Error(err));
+      },
+    });
+
+    // this.apiService.deleteRoom(this.roomId).pipe(
+    //     map((res) => {
+    //       if (res['status'] == 204) {
+    //       this.resetForm();
+    //       const message = 'Room deleted successfully!!';
+    //       this.messageService.showMessages(
+    //         new MessageAlert(message, 'success')
+    //       );
+    //       // this.router.navigate(['/admin/manage-rooms']);
+    //     }
+    //     }),
+    //     catchError((err) => {
+    //       const message = 'Could not delete room';
+    //       this.messageService.showMessages(new MessageAlert(message, 'error'));
+    //       console.log(message, err);
+    //       return throwError(() => new Error(err));
+    //     })
+    //   );
+  }
+
+  resetForm() {
+    this.file = null;
+    this.preview = null;
+    this.room = null;
   }
 }
