@@ -149,16 +149,20 @@ export class ApiService {
       .pipe(map((res) => res['rooms']));
   }
 
-  updateRoom(formData: any): Observable<any> {
-    return this.http.put(`${Constants.BASE_URL}/rooms/`, formData, {
+  updateRoom(formData: any): Observable<Response> {
+    return this.http.put<Response>(`${Constants.BASE_URL}/rooms/update`, formData, {
       headers: this.getHeader(),
     });
   }
 
   addRoom(formData: any): Observable<Response> {
-    return this.http.post<Response>(`${Constants.BASE_URL}/rooms/add`, formData, {
-      headers: this.getHeader(),
-    });
+    return this.http.post<Response>(
+      `${Constants.BASE_URL}/rooms/add`,
+      formData,
+      {
+        headers: this.getHeader(),
+      }
+    );
   }
 
   getRoomsByType(roomType: string): Observable<Room[]> {

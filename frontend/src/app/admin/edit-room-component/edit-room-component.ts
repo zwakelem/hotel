@@ -88,6 +88,7 @@ export class EditRoomComponent {
   updateRoom() {
     console.log('add room');
     if (
+      !this.room?.id ||
       !this.room?.roomType ||
       !this.room?.pricePerNight ||
       !this.room?.capacity ||
@@ -106,6 +107,7 @@ export class EditRoomComponent {
     }
 
     const formData = new FormData();
+    formData.append('id', String(this.room!.id));
     formData.append('roomType', this.room?.roomType);
     formData.append('pricePerNight', String(this.room!.pricePerNight));
     formData.append('capacity', String(this.room!.capacity));
@@ -116,16 +118,17 @@ export class EditRoomComponent {
       formData.append('imageFile', this.file);
     }
 
-    this.apiService.updateRoom(formData).subscribe({
-      next: (res: Response) => {
-        if (res['status'] == 200) {
+    this.apiService.updateRoom(formData).subscribe(
+      (res: any) => {
+        if (res['status'] == 204) {
           const message = 'Room updated successfully!!';
           this.messageService.showMessages(
             new MessageAlert(message, 'success')
           );
+          // this.router.navigate(['/admin/manage-rooms']);
         }
       },
-      error: (err) => {
+      (err) => {
         this.messageService.showMessages(
           new MessageAlert(
             err?.error?.message || 'Unable to update room.',
@@ -134,6 +137,6 @@ export class EditRoomComponent {
         );
         return throwError(() => new Error(err));
       },
-    });
+    );
   }
 }
