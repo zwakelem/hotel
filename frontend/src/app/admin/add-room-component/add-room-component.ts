@@ -80,8 +80,6 @@ export class AddRoomComponent {
     }
   }
 
-  clearRoomPhoto() {}
-
   // Add room function
   addRoom() {
     console.log('add room');

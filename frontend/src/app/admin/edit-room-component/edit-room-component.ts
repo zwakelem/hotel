@@ -56,9 +56,13 @@ export class EditRoomComponent {
   fetchRoomById() {
     this.room$ = this.loadingService.showLoaderUntilCompleted(
       this.apiService.getRoomById(this.roomId).pipe(
-        map((rooms) => rooms),
+        map((room) => {
+          this.room = room;
+          this.preview = room?.imageUrl;
+          return room;
+        }),
         catchError((err) => {
-          const message = 'Could not load rooms';
+          const message = 'Could not load room';
           this.messageService.showMessages(new MessageAlert(message, 'error'));
           console.log(message, err);
           return throwError(() => new Error(err));
@@ -66,8 +70,6 @@ export class EditRoomComponent {
       )
     );
   }
-
-  updateRoom() {}
 
   // Handle file input change (image upload)
   handleFileChange(event: Event) {
@@ -80,5 +82,58 @@ export class EditRoomComponent {
       this.file = null;
       this.preview = null;
     }
+  }
+
+  // Update room function
+  updateRoom() {
+    console.log('add room');
+    if (
+      !this.room?.roomType ||
+      !this.room?.pricePerNight ||
+      !this.room?.capacity ||
+      !this.room?.roomNumber ||
+      !this.room?.imageUrl 
+    ) {
+      this.messageService.showMessages(
+        new MessageAlert('All room details must be provided.', 'error')
+      );
+      return;
+    }
+
+    // TODO: use bootstrap modal here
+    if (!window.confirm('Do you want to add this room?')) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('roomType', this.room?.roomType);
+    formData.append('pricePerNight', String(this.room!.pricePerNight));
+    formData.append('capacity', String(this.room!.capacity));
+    formData.append('roomNumber', String(this.room!.roomNumber));
+    formData.append('description', this.room?.description);
+
+    if (this.file) {
+      formData.append('imageFile', this.file);
+    }
+
+    this.apiService.updateRoom(formData).subscribe({
+      next: (res: Response) => {
+        if (res['status'] == 200) {
+          const message = 'Room updated successfully!!';
+          this.messageService.showMessages(
+            new MessageAlert(message, 'success')
+          );
+        }
+      },
+      error: (err) => {
+        this.messageService.showMessages(
+          new MessageAlert(
+            err?.error?.message || 'Unable to update room.',
+            'error'
+          )
+        );
+        return throwError(() => new Error(err));
+      },
+    });
   }
 }
