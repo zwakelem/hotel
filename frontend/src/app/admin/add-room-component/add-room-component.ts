@@ -80,6 +80,8 @@ export class AddRoomComponent {
     }
   }
 
+  clearRoomPhoto() {}
+
   // Add room function
   addRoom() {
     console.log('add room');
@@ -89,7 +91,9 @@ export class AddRoomComponent {
       !this.roomDetails.capacity ||
       !this.roomDetails.roomNumber
     ) {
-      this.messageService.showMessages(new MessageAlert('All room details must be provided.', 'error'));
+      this.messageService.showMessages(
+        new MessageAlert('All room details must be provided.', 'error')
+      );
       return;
     }
 
@@ -114,22 +118,27 @@ export class AddRoomComponent {
         if (res['status'] == 201) {
           this.resetForm();
           const message = 'Room addded successfully!!';
-          this.messageService.showMessages(new MessageAlert(message, 'success'));
+          this.messageService.showMessages(
+            new MessageAlert(message, 'success')
+          );
           // this.router.navigate(['/admin/manage-rooms']);
         }
       },
       error: (err) => {
-        this.messageService.showMessages(new MessageAlert(
-          err?.error?.message || 'Unable to make a booking.', 'error')
+        this.messageService.showMessages(
+          new MessageAlert(
+            err?.error?.message || 'Unable to make a booking.',
+            'error'
+          )
         );
         return throwError(() => new Error(err));
       },
     });
-
   }
 
   resetForm() {
     this.file = null;
+    this.preview = null;
     this.roomDetails = {
       imageUrl: null,
       roomType: '',

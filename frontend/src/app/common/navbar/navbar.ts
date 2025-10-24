@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../service/api';
 
 @Component({
@@ -32,6 +32,7 @@ export class Navbar {
   }
 
   handleLogout(): void {
+    //TODO: add bootstrap modal - ask copilot
     const isLogout = window.confirm('Are you sure you want to logout?');
     if (isLogout) {
       this.apiService.logout();

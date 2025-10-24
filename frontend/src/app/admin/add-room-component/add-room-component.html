@@ -10,7 +10,14 @@
         <form (ngSubmit)="addRoom()">
 
           <div class="mb-3">
-            <label for="formFile" class="form-label">Upload room photo</label>
+            @if(preview) {
+            <ng-container>
+              <div>
+                <img [src]="preview" alt="Room Preview" class="img-fluid w-100"/>
+              </div>
+            </ng-container>
+            }
+            <label for="formFile" class="form-label mt-2">Upload room photo</label>
             <input 
               name="roomPhoto" 
               class="form-control" 

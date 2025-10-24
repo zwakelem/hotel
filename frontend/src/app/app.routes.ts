@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router';
 import { AddRoomComponent } from './admin/add-room-component/add-room-component';
 import { AdminHomeComponent } from './admin/admin-home-component/admin-home-component';
+import { EditRoomComponent } from './admin/edit-room-component/edit-room-component';
+import { ManageBookingsComponent } from './admin/manage-bookings-component/manage-bookings-component';
 import { ManageRoomsComponent } from './admin/manage-rooms-component/manage-rooms-component';
+import { UpdateBookingComponent } from './admin/update-booking-component/update-booking-component';
 import { FindBooking } from './booking/find-booking/find-booking';
 import { Home } from './common/home/home';
 import { Login } from './common/login/login';
@@ -37,6 +40,10 @@ export const routes: Routes = [
   {path: 'admin', component: AdminHomeComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   {path: 'admin/manage-rooms', component: ManageRoomsComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   {path: 'admin/add-room', component: AddRoomComponent, canActivate: [Guard], data: {requiresAdmin: true} },
+  {path: 'admin/edit-room/:id', component: EditRoomComponent, canActivate: [Guard], data: {requiresAdmin: true} },
+
+  {path: 'admin/manage-bookings', component: ManageBookingsComponent, canActivate: [Guard], data: {requiresAdmin: true} },
+  {path: 'admin/update-booking/:ref', component: UpdateBookingComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   
   {path: '**', redirectTo: 'home'},
 ];
