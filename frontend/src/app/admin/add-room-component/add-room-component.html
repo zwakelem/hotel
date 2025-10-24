@@ -65,6 +65,17 @@
             <label class="form-label">Capacity</label>
           </div>
 
+          <div class="form-floating mb-3">
+            <textarea
+              name="description"
+              class="form-control"
+              placeholder="Add a description"
+              style="height: 100px"
+              maxlength="500"
+              [(ngModel)]="roomDetails.description"></textarea>
+            <label class="form-label">Description</label>
+          </div>
+
           <div class="d-grid gap-2">
             <button
               type="submit"

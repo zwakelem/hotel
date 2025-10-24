@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { EMPTY, Observable, tap } from 'rxjs';
 import { MessagesService } from '../../service/messages.service';
 
@@ -10,28 +10,15 @@ import { MessagesService } from '../../service/messages.service';
   styleUrl: './messages.css',
 })
 export class Messages {
-
+  //TODO: make it reusable for error or success or warn messages
   showMessages = false;
   errors$: Observable<string[]> = EMPTY;
-  success$: Observable<string[]> = EMPTY;
-  @Input()
-  messageType: string = 'error';
 
   constructor(public messagesService: MessagesService) {}
 
   ngOnInit() {
     this.errors$ = this.messagesService.errors$.pipe(
-      tap(() => {
-        this.showMessages = true;
-        this.messageType = 'error';
-      })
-    );
-
-    this.success$ = this.messagesService.success$.pipe(
-      tap(() => {
-        this.showMessages = true;
-        this.messageType = 'success';
-      })
+      tap(() => (this.showMessages = true))
     );
   }
 

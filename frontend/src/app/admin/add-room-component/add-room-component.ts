@@ -91,7 +91,7 @@ export class AddRoomComponent {
       !this.roomDetails.capacity ||
       !this.roomDetails.roomNumber
     ) {
-      // this.showError('All room details must be provided.');
+      this.messageService.showErrors('All room details must be provided.');
       return;
     }
 
@@ -115,7 +115,7 @@ export class AddRoomComponent {
       next: (res: any) => {
         if (res.status === 200) {
           const message = 'Room addded successfully!!';
-          this.messageService.showSuccess(message);
+          this.messageService.showErrors(message);
           this.router.navigate(['/admin/manage-rooms']);
         }
       },
@@ -123,22 +123,9 @@ export class AddRoomComponent {
         this.messageService.showErrors(
           err?.error?.message || 'Unable to make a booking.'
         );
+        return throwError(() => new Error(err));
       },
     });
 
-    // this.apiService.addRoom(formData).subscribe({
-    //   next: (response: Response) => {
-    //     console.log(response);
-    //     this.success = 'Room Added successfully.';
-    //     setTimeout(() => {
-    //       this.success = '';
-    //       this.router.navigate(['/admin/manage-rooms']);
-    //     }, 5000);
-    //   },
-    //   error: (error: any) => {
-    //     console.log(error);
-    //     // this.showError(error?.error?.message || 'Error adding room');
-    //   },
-    // });
   }
 }
