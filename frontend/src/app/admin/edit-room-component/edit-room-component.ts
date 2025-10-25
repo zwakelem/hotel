@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
@@ -17,7 +17,7 @@ declare var bootstrap: any;
   templateUrl: './edit-room-component.html',
   styleUrl: './edit-room-component.css',
 })
-export class EditRoomComponent {
+export class EditRoomComponent implements AfterViewInit {
   roomId: string = '';
   room: Room | null = null;
   room$: Observable<Room> = EMPTY;
@@ -41,6 +41,9 @@ export class EditRoomComponent {
     this.roomId = this.route.snapshot.paramMap.get('id')!;
     this.fetchRoomById();
     this.fetchRoomTypes();
+  }
+
+  ngAfterViewInit() {
     this.initializeModals();
   }
 
