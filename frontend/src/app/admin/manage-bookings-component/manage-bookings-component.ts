@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { catchError, EMPTY, Observable, throwError } from 'rxjs';
-import { Booking } from '../../model/booking';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { Booking, sortBookingsById } from '../../model/booking';
 import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
@@ -16,22 +17,25 @@ import { MessagesService } from '../../service/messages.service';
 })
 export class ManageBookingsComponent {
   bookingRef: string = '';
-  bookings$: Observable<Booking[]> = EMPTY;
+  allBookings$: Observable<Booking[]> = EMPTY;
+  filteredBookings$: Observable<Booking[]> = EMPTY;
 
   constructor(
     private messagesService: MessagesService,
     private apiService: ApiService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private router: Router
   ) {}
 
-  OnInit() {
+  ngOnInit() {
     this.loadAllBookings();
   }
 
   loadAllBookings() {
     // wrap Observable with loading service call to show spinner
-    this.bookings$ = this.loading.showLoaderUntilCompleted(
+    this.allBookings$ = this.loading.showLoaderUntilCompleted(
       this.apiService.getAllBookings().pipe(
+        map((bookings) => bookings.sort(sortBookingsById)),
         catchError((err) => {
           this.messagesService.showMessages(
             new MessageAlert('Could not find booking', 'error')
@@ -43,11 +47,21 @@ export class ManageBookingsComponent {
   }
 
   handleSearch() {
-    if (!this.bookingRef.trim()) {
-      this.messagesService.showMessages(
-        new MessageAlert('Please enter the booking confirmation code', 'error')
+    console.log(this.bookingRef);
+    if (this.bookingRef) {
+      this.filteredBookings$ = this.allBookings$.pipe(
+        map((bookings) =>
+          bookings.filter((booking) =>
+            booking.bookingReference.includes(this.bookingRef)
+          )
+        )
       );
-      return;
+    } else {
+      this.filteredBookings$ = this.allBookings$;
     }
+  }
+
+  manageBooking(bookingReference: string) {
+    this.router.navigate([`admin/update-booking/${bookingReference}`]);
   }
 }

@@ -17,11 +17,21 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-5 bg-light shadow border">
       <!-- Bookings list -->
-      @for(booking of bookings$ | async; track booking.id) {
+      @for(booking of filteredBookings$ | async; track booking.id) {
         <ng-container>
-          
+          <div class="col-4 col-md-4 col-sm-2 my-3 p-2">
+            <p><strong>Booking Code:</strong> {{ booking.bookingReference }}</p>
+            <p><strong>Check In Date:</strong> {{ booking.checkInDate }}</p>
+            <p><strong>Check Out Date:</strong> {{ booking.checkOutDate }}</p>
+            <p><strong>Total Price:</strong> {{ booking.totalPrice | currency}}</p>
+            <p><strong>Payment Status:</strong> {{ booking.paymentStatus }}</p>
+            <p><strong>Booking Status:</strong> {{ booking.bookingStatus }}</p>
+            <button class="btn btn-info" (click)="manageBooking(booking.bookingReference)">
+              Manage Booking
+            </button>
+          </div>
         </ng-container>
       }
     </div>
