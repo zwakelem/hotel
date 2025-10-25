@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
@@ -9,13 +9,15 @@ import { ApiService } from '../../service/api';
 import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-edit-room-component',
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-room-component.html',
   styleUrl: './edit-room-component.css',
 })
-export class EditRoomComponent {
+export class EditRoomComponent implements AfterViewInit {
   roomId: string = '';
   room: Room | null = null;
   room$: Observable<Room> = EMPTY;
@@ -23,6 +25,9 @@ export class EditRoomComponent {
 
   file: File | null = null;
   preview: string | null = null;
+
+  private updateModal: any;
+  private deleteModal: any;
 
   constructor(
     private messageService: MessagesService,
@@ -36,6 +41,53 @@ export class EditRoomComponent {
     this.roomId = this.route.snapshot.paramMap.get('id')!;
     this.fetchRoomById();
     this.fetchRoomTypes();
+  }
+
+  ngAfterViewInit() {
+    this.initializeModals();
+  }
+
+  initializeModals() {
+    const updateModalElement = document.getElementById('updateConfirmModal');
+    const deleteModalElement = document.getElementById('deleteConfirmModal');
+    
+    if (updateModalElement) {
+      this.updateModal = new bootstrap.Modal(updateModalElement);
+    }
+    if (deleteModalElement) {
+      this.deleteModal = new bootstrap.Modal(deleteModalElement);
+    }
+  }
+
+  showUpdateConfirmModal() {
+    if (
+      !this.room?.id ||
+      !this.room?.roomType ||
+      !this.room?.pricePerNight ||
+      !this.room?.capacity ||
+      !this.room?.roomNumber ||
+      !this.room?.imageUrl
+    ) {
+      this.messageService.showMessages(
+        new MessageAlert('All room details must be provided.', 'error')
+      );
+      return;
+    }
+    this.updateModal?.show();
+  }
+
+  showDeleteConfirmModal() {
+    this.deleteModal?.show();
+  }
+
+  confirmUpdate() {
+    this.updateModal?.hide();
+    this.updateRoom();
+  }
+
+  confirmDelete() {
+    this.deleteModal?.hide();
+    this.deleteRoom();
   }
 
   // Fetch room types from the API
@@ -86,33 +138,14 @@ export class EditRoomComponent {
 
   // Update room function
   updateRoom() {
-    console.log('add room');
-    if (
-      !this.room?.id ||
-      !this.room?.roomType ||
-      !this.room?.pricePerNight ||
-      !this.room?.capacity ||
-      !this.room?.roomNumber ||
-      !this.room?.imageUrl
-    ) {
-      this.messageService.showMessages(
-        new MessageAlert('All room details must be provided.', 'error')
-      );
-      return;
-    }
-
-    // TODO: use bootstrap modal here
-    if (!window.confirm('Do you want to add this room?')) {
-      return;
-    }
-
+    console.log('update room');
     const formData = new FormData();
     formData.append('id', String(this.room!.id));
-    formData.append('roomType', this.room?.roomType);
+    formData.append('roomType', this.room?.roomType || '');
     formData.append('pricePerNight', String(this.room!.pricePerNight));
     formData.append('capacity', String(this.room!.capacity));
     formData.append('roomNumber', String(this.room!.roomNumber));
-    formData.append('description', this.room?.description);
+    formData.append('description', this.room?.description || '');
 
     if (this.file) {
       formData.append('imageFile', this.file);
@@ -143,11 +176,6 @@ export class EditRoomComponent {
 
   deleteRoom() {
     console.log('delete room');
-    // TODO: use bootstrap modal here
-    if (!window.confirm('Do you want to add this room?')) {
-      return;
-    }
-
     this.apiService.deleteRoom(this.roomId).subscribe({
       next: (res) => {
         if (res['status'] == 204) {
