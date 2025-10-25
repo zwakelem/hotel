@@ -24,15 +24,15 @@ jobs:
 
       - name: Prepare artifact
         run: |
-          JAR_FILE=$(ls target/*.jar | grep -v 'original' | head -n 1)
+          JAR_FILE=$(ls backend/target/*.jar | grep -v 'original' | head -n 1)
           if [ -z "$JAR_FILE" ]; then
-            echo "No JAR found in target/"
+            echo "No JAR found in backend/target/"
             exit 1
           fi
           zip -j app.zip "$JAR_FILE"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v5.1.0
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
