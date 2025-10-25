@@ -16,16 +16,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '22'
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm ci
 
       - name: Build
+        working-directory: ./frontend
         run: npm run build
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -34,5 +36,5 @@ jobs:
       - name: Sync to S3
         run: |
           # adjust BUILD_DIR if your build output is in a subfolder like dist/my-app
-          BUILD_DIR=dist
+          BUILD_DIR=frontend/dist
           aws s3 sync "$BUILD_DIR" "s3://${{ secrets.S3_BUCKET }}" --delete --acl public-read
