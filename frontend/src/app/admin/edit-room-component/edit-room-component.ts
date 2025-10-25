@@ -167,24 +167,6 @@ export class EditRoomComponent {
       },
     });
 
-    // this.apiService.deleteRoom(this.roomId).pipe(
-    //     map((res) => {
-    //       if (res['status'] == 204) {
-    //       this.resetForm();
-    //       const message = 'Room deleted successfully!!';
-    //       this.messageService.showMessages(
-    //         new MessageAlert(message, 'success')
-    //       );
-    //       // this.router.navigate(['/admin/manage-rooms']);
-    //     }
-    //     }),
-    //     catchError((err) => {
-    //       const message = 'Could not delete room';
-    //       this.messageService.showMessages(new MessageAlert(message, 'error'));
-    //       console.log(message, err);
-    //       return throwError(() => new Error(err));
-    //     })
-    //   );
   }
 
   resetForm() {

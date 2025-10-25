@@ -1,1 +1,29 @@
-<p>manage-bookings-component works!</p>
+<div class="container">
+
+  <h2 class="h2 text-center mt-5">Manage Bookings</h2>
+  <div class="row w-100 my-3">
+
+    <!-- Search Section -->
+    <div class="row mb-3">
+      <div class="d-flex justify-content-center w-50 center-item input-group">
+        <span class="input-group-text">Booking Reference</span>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Enter booking reference"
+          [(ngModel)]="bookingRef"
+          (keyup)="handleSearch()"
+          required />
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Bookings list -->
+      @for(booking of bookings$ | async; track booking.id) {
+        <ng-container>
+          
+        </ng-container>
+      }
+    </div>
+    
+  </div>

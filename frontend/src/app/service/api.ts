@@ -151,9 +151,13 @@ export class ApiService {
   }
 
   updateRoom(formData: any): Observable<Response> {
-    return this.http.put<Response>(`${Constants.BASE_URL}/rooms/update`, formData, {
-      headers: this.getHeader(),
-    });
+    return this.http.put<Response>(
+      `${Constants.BASE_URL}/rooms/update`,
+      formData,
+      {
+        headers: this.getHeader(),
+      }
+    );
   }
 
   addRoom(formData: any): Observable<Response> {
@@ -200,10 +204,14 @@ export class ApiService {
       );
   }
 
-  updateBooking(booking: any): Observable<any> {
-    return this.http.put(`${Constants.BASE_URL}/bookings/update`, booking, {
-      headers: this.getHeader(),
-    });
+  updateBooking(booking: Booking): Observable<Response> {
+    return this.http.put<Response>(
+      `${Constants.BASE_URL}/bookings`,
+      booking,
+      {
+        headers: this.getHeader(),
+      }
+    );
   }
 
   getBookingByReference(bookingCode: string): Observable<Booking> {

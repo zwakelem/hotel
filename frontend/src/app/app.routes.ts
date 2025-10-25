@@ -43,7 +43,7 @@ export const routes: Routes = [
   {path: 'admin/edit-room/:id', component: EditRoomComponent, canActivate: [Guard], data: {requiresAdmin: true} },
 
   {path: 'admin/manage-bookings', component: ManageBookingsComponent, canActivate: [Guard], data: {requiresAdmin: true} },
-  {path: 'admin/update-booking/:ref', component: UpdateBookingComponent, canActivate: [Guard], data: {requiresAdmin: true} },
+  {path: 'admin/update-booking/:bookingReference', component: UpdateBookingComponent, canActivate: [Guard], data: {requiresAdmin: true} },
   
   {path: '**', redirectTo: 'home'},
 ];
