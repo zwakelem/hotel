@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AddRoomComponent } from './admin/add-room-component/add-room-component';
 import { AdminHomeComponent } from './admin/admin-home-component/admin-home-component';
+import { AdminRegisterComponent } from './admin/admin-register-component/admin-register-component';
 import { EditRoomComponent } from './admin/edit-room-component/edit-room-component';
 import { ManageBookingsComponent } from './admin/manage-bookings-component/manage-bookings-component';
 import { ManageRoomsComponent } from './admin/manage-rooms-component/manage-rooms-component';
@@ -90,6 +91,13 @@ export const routes: Routes = [
   {
     path: 'admin/update-booking/:bookingReference',
     component: UpdateBookingComponent,
+    canActivate: [Guard],
+    data: { requiresAdmin: true },
+  },
+
+  {
+    path: 'admin/admin-register',
+    component: AdminRegisterComponent,
     canActivate: [Guard],
     data: { requiresAdmin: true },
   },

@@ -1,1 +1,96 @@
-<p>admin-register-component works!</p>
+<div class="container min-vh-100 d-flex justify-content-center mt-5">
+  <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+
+      <div class="card-title">
+        <h3 class="text-center h3 my-3 blue-color">Register User</h3>
+      </div>
+
+      <div class="card-body">
+        <form (ngSubmit)="handleSubmit()">
+
+          <div class="form-floating mb-3">
+            <input
+              name="firstName"
+              type="text"
+              class="form-control"
+              required
+              [(ngModel)]="user.firstName"
+              placeholder="John" />
+            <label class="form-label">First Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="lastName"
+              type="text"
+              class="form-control"
+              required
+              [(ngModel)]="user.lastName"
+              placeholder="Doe">
+            <label class="form-label">Last Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="email"
+              type="email"
+              class="form-control"
+              required
+              [(ngModel)]="user.email"
+              placeholder="john@email.com">
+            <label class="form-label">Email</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="phoneNumber"
+              type="tel"
+              class="form-control"
+              required
+              [(ngModel)]="user.phoneNumber"
+              placeholder="john@email.com">
+            <label class="form-label">Phone Number</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              name="password"
+              type="password"
+              class="form-control"
+              required
+              [(ngModel)]="user.password"
+              placeholder="Doe">
+            <label class="form-label">Password</label>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select"
+              name="role"
+              [(ngModel)]="user.role">
+              <option selected value="">Roles</option>
+              @for (role of roles; track role) {
+              <option [value]="role">
+                {{ role }}
+              </option>
+              }
+            </select>
+          </div>
+
+          <div class="d-grid gap-2 mt-2">
+            <button
+              type="submit"
+              class="btn btn-success">Register User</button>
+          </div>
+
+          <div class="text-center mt-3">
+            <p>Already have an account?
+              <a class="orange-color" routerLink="/login">Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

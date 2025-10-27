@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 import { BehaviorSubject, map, Observable, shareReplay, tap } from 'rxjs';
 import { Booking } from '../model/booking';
 import { BookingRequest } from '../model/bookingRequest';
+import { RegistrationRequest } from '../model/registrationRequest';
 import { Response } from '../model/response';
 import { Room } from '../model/room';
 import { User } from '../model/user';
@@ -58,8 +59,11 @@ export class ApiService {
    * USER API
    *****************************/
 
-  registerUser(body: any): Observable<any> {
-    return this.http.post(`${Constants.BASE_URL}/auth/register`, body);
+  registerUser(body: RegistrationRequest): Observable<Response> {
+    return this.http.post<Response>(
+      `${Constants.BASE_URL}/auth/register`,
+      body
+    );
   }
 
   loginUser(body: any): Observable<any> {
@@ -194,8 +198,9 @@ export class ApiService {
   }
 
   getAllBookings(): Observable<Booking[]> {
+    console.log(' ddd d');
     return this.http
-      .get<Response>(`${Constants.BASE_URL}/bookings/all`, {
+      .get<any>(`${Constants.BASE_URL}/bookings/all`, {
         headers: this.getHeader(),
       })
       .pipe(
@@ -205,13 +210,9 @@ export class ApiService {
   }
 
   updateBooking(booking: Booking): Observable<Response> {
-    return this.http.put<Response>(
-      `${Constants.BASE_URL}/bookings`,
-      booking,
-      {
-        headers: this.getHeader(),
-      }
-    );
+    return this.http.put<Response>(`${Constants.BASE_URL}/bookings`, booking, {
+      headers: this.getHeader(),
+    });
   }
 
   getBookingByReference(bookingCode: string): Observable<Booking> {

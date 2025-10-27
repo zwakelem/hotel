@@ -44,6 +44,7 @@ export class ManageBookingsComponent {
         })
       )
     );
+    this.filteredBookings$ = this.allBookings$;
   }
 
   handleSearch() {

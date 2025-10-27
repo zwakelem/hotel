@@ -10,4 +10,5 @@ export class Constants {
   static readonly PAYMENT_STATUSES = [
     'PENDING', 'COMPLETED', 'FAILED', 'REFUNDED', 'REVERSED'
   ];
+  static readonly ROLES = ['ADMIN', 'CUSTOMER'];
 }
