@@ -40,7 +40,7 @@ jobs:
 
       - name: Upload to S3 and deploy to Elastic Beanstalk
         env:
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_URL }}
           EB_APP: ${{ secrets.EB_APPLICATION_NAME }}
           EB_ENV: ${{ secrets.EB_ENVIRONMENT_NAME }}
         run: |
