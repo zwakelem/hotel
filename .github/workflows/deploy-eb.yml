@@ -24,9 +24,9 @@ jobs:
 
       - name: Prepare artifact
         run: |
-          JAR_FILE=$(ls target/*.jar | grep -v 'original' | head -n 1)
+          JAR_FILE=$(ls backend/target/*.jar | grep -v 'original' | head -n 1)
           if [ -z "$JAR_FILE" ]; then
-            echo "No JAR found in target/"
+            echo "No JAR found in backend/target/"
             exit 1
           fi
           zip -j app.zip "$JAR_FILE"
