@@ -37,4 +37,4 @@ jobs:
         run: |
           # adjust BUILD_DIR if your build output is in a subfolder like dist/my-app
           BUILD_DIR=frontend/dist
-          aws s3 sync "$BUILD_DIR" "s3://${{ secrets.AWS_S3_BUCKET_URL }}/${{ secrets.AWS_S3_BUCKET_NAME" }}/${{ AWS_S3_BUCKET_DIR }} --delete --acl public-read
+          aws s3 sync "$BUILD_DIR" "s3://${{ secrets.S3_BUCKET }} --delete --acl public-read
