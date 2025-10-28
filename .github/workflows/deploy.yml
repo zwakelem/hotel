@@ -29,12 +29,12 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
-          aws-access-key-id: ${{ AWS_EBS.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ AWS_EBS.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ AWS_EBS.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Sync to S3
         run: |
           # adjust BUILD_DIR if your build output is in a subfolder like dist/my-app
           BUILD_DIR=frontend/dist
-          aws s3 sync "$BUILD_DIR" "s3://${{ AWS_EBS.S3_BUCKET }}" --delete --acl public-read
+          aws s3 sync "$BUILD_DIR" "s3://${{ secrets.AWS_S3_BUCKET_URL }}/${{ secrets.AWS_S3_BUCKET_NAME" }}/${{ AWS_S3_BUCKET_DIR }} --delete --acl public-read
