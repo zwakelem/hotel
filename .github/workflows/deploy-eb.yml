@@ -40,13 +40,13 @@ jobs:
 
       - name: Upload to S3 and deploy to Elastic Beanstalk
         env:
-          S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          S3_BUCKET_DIR: ${{ secrets.AWS_S3_BUCKET_DIR }}
           EB_APP: ${{ secrets.EB_APPLICATION_NAME }}
           EB_ENV: ${{ secrets.EB_ENVIRONMENT_NAME }}
         run: |
           VERSION_LABEL=${{ github.sha }}-$(date +%Y%m%d%H%M%S)
-          aws s3 cp app.zip "s3://${S3_BUCKET}/${VERSION_LABEL}.zip"
-          echo "here is my bucket " + ${S3_BUCKET}
+          aws s3 cp app.zip "s3://${S3_BUCKET}/${S3_BUCKET_DIR}/${VERSION_LABEL}.zip"
           aws elasticbeanstalk create-application-version \
             --application-name "${EB_APP}" \
             --version-label "${VERSION_LABEL}" \
