@@ -50,7 +50,7 @@ jobs:
           aws elasticbeanstalk create-application-version \
             --application-name "${EB_APP}" \
             --version-label "${VERSION_LABEL}" \
-            --source-bundle S3Bucket="${S3_BUCKET}/${S3_BUCKET_DIR}",S3Key="${VERSION_LABEL}.zip"
+            --source-bundle S3Bucket="${S3_BUCKET}",S3Key="${S3_BUCKET_DIR}/${VERSION_LABEL}.zip"
           aws elasticbeanstalk update-environment \
             --environment-name "${EB_ENV}" \
             --version-label "${VERSION_LABEL}"
