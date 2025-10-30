@@ -46,6 +46,7 @@ jobs:
         run: |
           VERSION_LABEL=${{ github.sha }}-$(date +%Y%m%d%H%M%S)
           aws s3 cp app.zip "s3://${S3_BUCKET}/${VERSION_LABEL}.zip"
+          echo "here is my bucket " + ${S3_BUCKET}
           aws elasticbeanstalk create-application-version \
             --application-name "${EB_APP}" \
             --version-label "${VERSION_LABEL}" \
