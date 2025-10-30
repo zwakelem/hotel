@@ -9,6 +9,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # expose BUILD_DIR and S3_BUCKET as job env variables (can be overridden via repo secrets)
+    env:
+      BUILD_DIR: frontend/dist
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -36,5 +41,4 @@ jobs:
       - name: Sync to S3
         run: |
           # adjust BUILD_DIR if your build output is in a subfolder like dist/my-app
-          BUILD_DIR=frontend/dist
-          aws s3 sync "$BUILD_DIR" "s3://${{ secrets.S3_BUCKET }}" --delete --acl public-read
+          aws s3 sync "$BUILD_DIR" "s3://$S3_BUCKET" --delete --acl public-read
