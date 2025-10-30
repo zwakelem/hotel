@@ -16,12 +16,9 @@ import za.co.simplitate.hotelbooking.util.GenericMapper;
 import za.co.simplitate.hotelbooking.util.enums.RoomType;
 import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import static za.co.simplitate.hotelbooking.Const.ROOM_NOT_FOUND;
 import static za.co.simplitate.hotelbooking.Const.SUCCESS;
@@ -110,7 +107,7 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
-    @Cacheable(value = "allRooms")
+//    @Cacheable(value = "allRooms")
     @Override
     public Response getAllRooms() {
         log.info("getAllRooms: ");
@@ -191,6 +188,7 @@ public class RoomServiceImpl implements RoomService {
                 .build();
     }
 
+    @Cacheable(value = "allRoomTypes")
     @Override
     public List<RoomType> getAllRoomTypes() {
         log.info("getAllRoomTypes: ");
@@ -236,35 +234,4 @@ public class RoomServiceImpl implements RoomService {
                 .build();
     }
 
-    private String saveImage(MultipartFile imageFile) throws Exception {
-        log.info("saveImage: ");
-        if (!imageFile.getContentType().startsWith("image/")) {
-            log.error("saveImage: not an image");
-           throw new IllegalArgumentException("Only image file allowed!!");
-        }
-
-        // create directory if it doesn't exist
-        File dir = new File(IMAGE_DIR);
-        if(!dir.exists()) {
-            if (dir.mkdir()) {
-                log.debug("Directory created");
-            } else {
-                log.warn("Could not create directory");
-            }
-        }
-
-        //generate unique filename for image
-        String fileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
-        String imagePath = IMAGE_DIR + fileName;
-
-        try {
-            File destinationFile = new File(imagePath);
-            imageFile.transferTo(destinationFile);
-        } catch (IOException | IllegalArgumentException ex) {
-            log.error("saveImage: error while saving an image");
-            throw new IllegalArgumentException(ex.getMessage());
-        }
-
-        return imagePath;
-    }
 }
