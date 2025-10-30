@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
 import { Booking } from '../../model/booking';
 import { MessageAlert } from '../../model/messageAlert';
 import { ApiService } from '../../service/api';
+import { LoadingService } from '../../service/loading.service';
 import { MessagesService } from '../../service/messages.service';
 import { Constants } from '../../util/Constants';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-update-booking-component',
@@ -14,72 +18,119 @@ import { Constants } from '../../util/Constants';
   templateUrl: './update-booking-component.html',
   styleUrl: './update-booking-component.css',
 })
-export class UpdateBookingComponent {
-  // @Input()
-  booking: Booking = this.getBooking();
+export class UpdateBookingComponent implements AfterViewInit {
+  booking: Booking = {} as Booking;
+  booking$: Observable<Booking> = EMPTY;
   bookingRef: string = '';
   bookingStatusOptions: string[] = Constants.BOOKING_STATUSES;
   paymentStatusOptions: string[] = Constants.PAYMENT_STATUSES;
+
+  private updateModal: any;
+  private deleteModal: any;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private loadingService: LoadingService
   ) {}
 
-  OnInit() {
+  ngOnInit() {
     this.bookingRef = this.route.snapshot.paramMap.get('bookingReference')!;
-    // this.getBooking(this.bookingRef);
+    this.getBooking();
+  }
+
+  ngAfterViewInit() {
+    this.initializeModals();
+  }
+
+  initializeModals() {
+    const updateModalElement = document.getElementById('updateModal');
+    const deleteModalElement = document.getElementById('deleteModal');
+
+    if (updateModalElement) {
+      this.updateModal = new bootstrap.Modal(updateModalElement);
+    }
+    if (deleteModalElement) {
+      this.deleteModal = new bootstrap.Modal(deleteModalElement);
+    }
   }
 
   updateBooking() {
-    console.log(' ***** ');
+    console.log(this.booking);
     this.apiService.updateBooking(this.booking).subscribe(
       (res) => {
-        if(res.status == 204) {
+        if (res.status == 204) {
           const message = 'Booking updated successfully!!';
-          this.messagesService.showMessages(new MessageAlert(message, 'success'));
+          this.messagesService.showMessages(
+            new MessageAlert(message, 'success')
+          );
         }
       },
       (err) => {
         const message = 'Could not update booking!!';
         this.messagesService.showMessages(new MessageAlert(message, 'error'));
-      } 
+      }
     );
   }
 
-  getBooking(): Booking {
-    return {
-      id: 16,
-      user: {
-        id: 4,
-        email: 'sim@gmail.com',
-        firstName: 'Sim',
-        lastName: 'Mgabhi',
-        phoneNumber: '0119995008',
-        role: 'CUSTOMER',
-        createdAt: new Date('2025-08-25'),
-        isActive: true,
+  deleteBooking() {
+    console.log('delete booking');
+    this.apiService.deleteBooking(this.bookingRef).subscribe({
+      next: (res) => {
+        if (res['status'] == 204) {
+          const message = 'Room deleted successfully!!';
+          this.messagesService.showMessages(
+            new MessageAlert(message, 'success')
+          );
+        }
       },
-      room: {
-        id: 10,
-        roomNumber: 104,
-        roomType: 'TRIPLE',
-        pricePerNight: 500.0,
-        capacity: 6,
-        description:
-          'Experience comfort and style in our elegant Double Room, perfect for couples or business travelers seeking relaxation and convenience. Enjoy plush bedding, modern amenities, and a serene atmosphere designed to make every stay unforgettable.',
-        imageUrl:
-          'https://sim-hotel-app.s3.eu-west-1.amazonaws.com/room-images/720455319.jpg',
+      error: (err) => {
+        const message = 'Could not delete room';
+        this.messagesService.showMessages(new MessageAlert(message, 'error'));
+        console.log(message, err);
+        return throwError(() => new Error(err));
       },
-      paymentStatus: 'COMPLETED',
-      checkInDate: new Date('2025-10-25'),
-      checkOutDate: new Date('2025-10-27'),
-      totalPrice: 1000.0,
-      bookingReference: '74fCt4pmPP',
-      createdAt: new Date('2025-10-22'),
-      bookingStatus: 'BOOKED',
-    };
+    });
+  }
+
+  getBooking() {
+    this.booking$ = this.loadingService.showLoaderUntilCompleted(
+      this.apiService.getBookingByReference(this.bookingRef).pipe(
+        map((booking) => {
+          this.booking = booking;
+          return booking;
+        }),
+        catchError((err) => {
+          const message = 'Could not load booking';
+          this.messagesService.showMessages(new MessageAlert(message, 'error'));
+          console.log(message, err);
+          return throwError(() => new Error(err));
+        })
+      )
+    );
+  }
+
+  showUpdateConfirmModal() {
+    this.updateModal?.show();
+  }
+
+  showDeleteConfirmModal() {
+    this.deleteModal?.show();
+  }
+
+  confirmUpdate() {
+    this.updateModal?.hide();
+    this.updateBooking();
+  }
+
+  confirmDelete() {
+    this.deleteModal?.hide();
+    this.deleteBooking();
+  }
+
+  cancel() {
+    this.router.navigate(['/admin/manage-bookings']);
   }
 }

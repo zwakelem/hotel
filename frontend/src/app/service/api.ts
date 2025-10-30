@@ -198,9 +198,8 @@ export class ApiService {
   }
 
   getAllBookings(): Observable<Booking[]> {
-    console.log(' ddd d');
     return this.http
-      .get<any>(`${Constants.BASE_URL}/bookings/all`, {
+      .get<Response>(`${Constants.BASE_URL}/bookings/all`, {
         headers: this.getHeader(),
       })
       .pipe(
@@ -219,6 +218,15 @@ export class ApiService {
     return this.http
       .get<Response>(`${Constants.BASE_URL}/bookings/${bookingCode}`)
       .pipe(map((res) => res['booking']));
+  }
+
+  deleteBooking(bookingRef: string): Observable<Response> {
+    return this.http.delete<Response>(
+      `${Constants.BASE_URL}/rooms/delete/${bookingRef}`,
+      {
+        headers: this.getHeader(),
+      }
+    );
   }
 
   /*loadRoomTypes() {

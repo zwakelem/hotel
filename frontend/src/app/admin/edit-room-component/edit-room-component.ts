@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
@@ -50,7 +50,7 @@ export class EditRoomComponent implements AfterViewInit {
   initializeModals() {
     const updateModalElement = document.getElementById('updateConfirmModal');
     const deleteModalElement = document.getElementById('deleteConfirmModal');
-    
+
     if (updateModalElement) {
       this.updateModal = new bootstrap.Modal(updateModalElement);
     }
@@ -194,12 +194,15 @@ export class EditRoomComponent implements AfterViewInit {
         return throwError(() => new Error(err));
       },
     });
-
   }
 
   resetForm() {
     this.file = null;
     this.preview = null;
     this.room = null;
+  }
+
+  cancel() {
+    this.router.navigate(['/admin/manage-rooms']);
   }
 }

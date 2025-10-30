@@ -39,4 +39,10 @@ public class BookingController {
     public ResponseEntity<Response> updateBooking(@RequestBody BookingTO bookingTO) {
         return ResponseEntity.ok(bookingService.updateBooking(bookingTO));
     }
+
+    @DeleteMapping("/{reference}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> deleteBooking(@PathVariable String reference) {
+        return ResponseEntity.ok(bookingService.deleteBooking(reference));
+    }
 }

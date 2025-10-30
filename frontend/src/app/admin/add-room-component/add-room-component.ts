@@ -146,4 +146,8 @@ export class AddRoomComponent {
       description: '',
     };
   }
+
+  cancel() {
+    this.router.navigate(['/admin/manage-rooms']);
+  }
 }

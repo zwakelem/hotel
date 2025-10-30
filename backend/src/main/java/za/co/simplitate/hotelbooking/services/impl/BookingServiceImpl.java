@@ -181,12 +181,37 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
+    @Override
+    public Response deleteBooking(String ref) {
+        log.info("deleteBooking: ");
+        Booking existingBooking = queryBooking(ref);
+        if(existingBooking != null) {
+            bookingRepository.delete(existingBooking);
+        }
+
+        return Response.builder()
+                .status(204)
+                .message("Booking deleted successfully")
+                .build();
+    }
+
     private Booking queryBooking(BookingTO bookingTO) {
         if(bookingTO.id() == null)
             throw new NotFoundException("Booking Id is required");
         return bookingRepository.findById(bookingTO.id())
                 .orElseThrow(() -> {
                     var message = String.format(BOOKING_ID_NOT_FOUND,  bookingTO.id());
+                    log.warn(message);
+                    return new NotFoundException(message);
+                });
+    }
+
+    private Booking queryBooking(String bookingReference) {
+        if(bookingReference == null)
+            throw new NotFoundException("Booking reference is required");
+        return bookingRepository.findBookingByBookingReference(bookingReference)
+                .orElseThrow(() -> {
+                    var message = String.format(BOOKING_REF_NOT_FOUND,  bookingReference);
                     log.warn(message);
                     return new NotFoundException(message);
                 });

@@ -10,4 +10,5 @@ public interface BookingService {
     Response createBooking(BookingRequestTO bookingRequestTO);
     Response findBookingByReference(String ref);
     Response updateBooking(BookingTO bookingTO);
+    Response deleteBooking(String ref);
 }

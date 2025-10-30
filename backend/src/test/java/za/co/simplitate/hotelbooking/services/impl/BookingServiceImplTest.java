@@ -3,12 +3,17 @@ package za.co.simplitate.hotelbooking.services.impl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import za.co.simplitate.hotelbooking.dtos.BookingRequestTO;
 import za.co.simplitate.hotelbooking.dtos.BookingTO;
+import za.co.simplitate.hotelbooking.dtos.NotificationTO;
 import za.co.simplitate.hotelbooking.dtos.Response;
 import za.co.simplitate.hotelbooking.entities.Booking;
+import za.co.simplitate.hotelbooking.entities.Room;
+import za.co.simplitate.hotelbooking.entities.User;
 import za.co.simplitate.hotelbooking.entities.repositories.BookingRepository;
 import za.co.simplitate.hotelbooking.entities.repositories.RoomsRepository;
 import za.co.simplitate.hotelbooking.services.BookingCodeGenerator;
@@ -16,12 +21,15 @@ import za.co.simplitate.hotelbooking.services.UserService;
 import za.co.simplitate.hotelbooking.services.notifications.NotificationService;
 import za.co.simplitate.hotelbooking.util.enums.BookingStatus;
 import za.co.simplitate.hotelbooking.util.enums.PaymentStatus;
+import za.co.simplitate.hotelbooking.util.exceptions.InvalidBookingStateException;
 import za.co.simplitate.hotelbooking.util.exceptions.NotFoundException;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 //TODO created by AI, not validated yet, not all tests pass
