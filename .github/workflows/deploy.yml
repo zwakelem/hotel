@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     # expose BUILD_DIR and S3_BUCKET as job env variables (can be overridden via repo secrets)
     env:
-      BUILD_DIR: frontend/dist
+      BUILD_DIR: frontend/dist/
       S3_BUCKET: ${{ secrets.S3_BUCKET }}
 
     steps:
