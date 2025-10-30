@@ -12,7 +12,7 @@ jobs:
     # expose BUILD_DIR and S3_BUCKET as job env variables (can be overridden via repo secrets)
     env:
       BUILD_DIR: frontend/dist/
-      S3_FE_BUCKET: ${{ secrets.AWS_S3_FE_BUCKET }}
+      S3_FE_BUCKET: ${{ secrets.AWS_S3_FE_BUCKET_NAME }}
 
     steps:
       - name: Checkout
