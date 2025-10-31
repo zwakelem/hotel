@@ -36,6 +36,9 @@ public class S3ServiceImpl implements S3Service {
     @Value("${aws.s3.bucket-url}")
     private String bucketUrl;
 
+    @Value("${aws.s3.bucket-images-folder}")
+    private String bucketImagesFolder;
+
     @Override
     public String uploadFile(MultipartFile file) {
         log.info("uploadFile: uploading file to S3 bucket");
