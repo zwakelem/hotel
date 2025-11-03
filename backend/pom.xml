@@ -17,7 +17,7 @@
 
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>25</java.version>
 		<jjwt.version>0.12.6</jjwt.version>
 		<stripe.version>28.4.0</stripe.version>
 		<modelmapper.version>2.4.4</modelmapper.version>
