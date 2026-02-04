@@ -50,7 +50,7 @@ class UserServiceImplTest {
         var result = userService.registerUser(mockRegistrationRequest());
 
         assertNotNull(result);
-        assertEquals(200, result.status());
+        assertEquals(200, result.statusCode());
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
         verify(userRepository, atLeastOnce()).save(userArgumentCaptor.capture());
         assertTrue(userArgumentCaptor.getValue().isActive());
@@ -66,7 +66,7 @@ class UserServiceImplTest {
         var result = userService.loginUser(mockLoginRequest());
 
         assertNotNull(result);
-        assertEquals(200, result.status());
+        assertEquals(200, result.statusCode());
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
         verify(userRepository, atLeastOnce()).findByEmail(EMAIL);
     }
@@ -100,7 +100,7 @@ class UserServiceImplTest {
         var result = userService.getAllUsers();
 
         assertNotNull(result);
-        assertEquals(200, result.status());
+        assertEquals(200, result.statusCode());
         assertEquals(1, result.users().size());
     }
 

@@ -44,6 +44,7 @@ public class Purchase {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal total;
 
+    @Builder.Default
     @Column
     private Integer quantity = 1;
 

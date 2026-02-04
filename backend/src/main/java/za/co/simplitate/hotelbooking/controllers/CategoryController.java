@@ -75,6 +75,6 @@ public class CategoryController {
 
     private Long getUserIdFromAuth(Authentication authentication) {
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
-        return authUser.getId();
+        return authUser.getUser().getId();
     }
 }
