@@ -53,7 +53,7 @@ public class RoomServiceImpl implements RoomService {
         Room savedRoom = roomsRepository.save(roomEntity);
         log.info("addRoom: room saved with id={}", savedRoom.getId());
         return Response.builder()
-                .status(201)
+                .statusCode(201)
                 .message("Room successfully added.")
                 .build();
     }
@@ -81,7 +81,7 @@ public class RoomServiceImpl implements RoomService {
         updateRoom(roomTO, existingRoom);
         roomsRepository.save(existingRoom);
         return Response.builder()
-                .status(204)
+                .statusCode(204)
                 .message("Room successfully updated.")
                 .build();
     }
@@ -122,7 +122,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException("No rooms found!!");
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .rooms(roomTOList)
                 .build();
@@ -139,7 +139,7 @@ public class RoomServiceImpl implements RoomService {
                 });
         RoomTO roomTO = GenericMapper.mapToRoomTO(existingRoom);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .room(roomTO)
                 .build();
@@ -156,7 +156,7 @@ public class RoomServiceImpl implements RoomService {
                 });
         roomsRepository.delete(existingRoom);
         return Response.builder()
-                .status(204)
+                .statusCode(204)
                 .message("room deleted successfully")
                 .build();
     }
@@ -182,7 +182,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException("No rooms found!!");
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .rooms(roomTOList)
                 .build();
@@ -208,7 +208,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException("No rooms found!!");
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .rooms(roomTOList)
                 .build();
@@ -228,7 +228,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException("No rooms found!!");
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .rooms(roomTOList)
                 .build();

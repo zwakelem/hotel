@@ -11,7 +11,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record Response(
         // generic
-        int status,
+        int statusCode,
         String message,
 
         // for login
@@ -36,6 +36,21 @@ public record Response(
         String transactionId,
         PaymentTO payment,
         List<PaymentTO> payments,
+
+        // Finance data - Category
+        CategoryTO category,
+        List<CategoryTO> categoryList,
+
+        // Finance data - Purchase
+        PurchaseTO purchase,
+        List<PurchaseTO> purchaseList,
+        PurchaseSummaryTO purchaseSummary,
+
+        // Finance data - Budget
+        BudgetTO budget,
+        List<BudgetTO> budgetList,
+        BudgetStatusTO budgetStatus,
+        List<BudgetStatusTO> budgetStatusList,
 
         LocalDateTime timestamp
 ) { }

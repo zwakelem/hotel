@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         User userToSave = createUser(registrationRequest, userRole);
         userRepository.save(userToSave);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(USER_REGISTERED_SUCCESSFULLY)
                 .build();
     }
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtUtils.generateToken(user.getEmail());
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(LOGGED_IN_SUCCESSFULLY)
                 .role(user.getRole())
                 .token(token)
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("No users found!!");
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .users(userTOList)
                 .message(SUCCESS)
                 .build();
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
                 });
         UserTO userTO = GenericMapper.mapToUserTO(user);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .user(userTO)
                 .build();
@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message("User updated successfully!!")
                 .user(userTO)
                 .build();
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
             bookingTOList = bookingList.stream().map(GenericMapper::mapToBookingTO).toList();
         }
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .bookings(bookingTOList)
                 .message(SUCCESS)
                 .build();
@@ -183,7 +183,7 @@ public class UserServiceImpl implements UserService {
         User user = getCurrentLoggedInUser();
         userRepository.delete(user);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message("User deleted successfully!!")
                 .build();
     }

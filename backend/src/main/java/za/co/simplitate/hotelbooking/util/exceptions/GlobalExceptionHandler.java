@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> handleUnknownExceptions(Exception ex) {
         Response response = Response.builder()
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Response> handleNotFoundException(Exception ex) {
         Response response = Response.builder()
-                .status(HttpStatus.NOT_FOUND.value())
+                .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NameValueRequiredException.class)
     public ResponseEntity<Response> handleNameValueRequiredException(Exception ex) {
         Response response = Response.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<Response> handleInvalidCredentialsException(Exception ex) {
         Response response = Response.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidBookingStateException.class)
     public ResponseEntity<Response> handleInvalidBookingStateException(Exception ex) {
         Response response = Response.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

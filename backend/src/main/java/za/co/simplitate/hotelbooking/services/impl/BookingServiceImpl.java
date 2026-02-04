@@ -62,7 +62,7 @@ public class BookingServiceImpl implements BookingService {
         return Response.builder()
                 .message(SUCCESS)
                 .bookings(bookingTOList)
-                .status(200)
+                .statusCode(200)
                 .build();
     }
 
@@ -98,7 +98,7 @@ public class BookingServiceImpl implements BookingService {
         notificationService.sendEmail(notificationTO);
 
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(BOOKING_CREATED_SUCCESSFULLY)
                 .booking(bookingTO)
                 .build();
@@ -155,7 +155,7 @@ public class BookingServiceImpl implements BookingService {
                 });
         BookingTO bookingTO = GenericMapper.mapToBookingTO(booking);
         return Response.builder()
-                .status(200)
+                .statusCode(200)
                 .message(SUCCESS)
                 .booking(bookingTO)
                 .build();
@@ -175,7 +175,7 @@ public class BookingServiceImpl implements BookingService {
 
         bookingRepository.save(existingBooking);
         return Response.builder()
-                .status(204)
+                .statusCode(204)
                 .message("Booking updated successfully")
                 .booking(bookingTO)
                 .build();
@@ -190,7 +190,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         return Response.builder()
-                .status(204)
+                .statusCode(204)
                 .message("Booking deleted successfully")
                 .build();
     }
