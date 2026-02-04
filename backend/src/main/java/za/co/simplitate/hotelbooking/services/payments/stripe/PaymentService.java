@@ -45,7 +45,7 @@ public class PaymentService {
 //            String uniqueTransactionId = intent.getClientSecret();
 
             return Response.builder()
-                    .status(200)
+                    .statusCode(200)
                     .message(SUCCESS)
                     .transactionId("dfsfsbsjhjkk")
                     .build();

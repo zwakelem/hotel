@@ -24,7 +24,7 @@ public class CustomAccessDenialHandler implements AccessDeniedHandler {
                        AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
         Response authErrorResponse = Response.builder()
-                .status(HttpStatus.FORBIDDEN.value()) // 403
+                .statusCode(HttpStatus.FORBIDDEN.value()) // 403
                 .message(accessDeniedException.getMessage())
                 .build();
         response.setContentType("application/json");

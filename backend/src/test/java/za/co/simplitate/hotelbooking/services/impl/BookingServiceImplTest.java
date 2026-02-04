@@ -59,7 +59,7 @@ class BookingServiceImplTest {
         Response resp = bookingService.getAllBookings();
 
         assertNotNull(resp);
-        assertEquals(200, resp.status());
+        assertEquals(200, resp.statusCode());
         assertNotNull(resp.bookings());
         assertEquals(1, resp.bookings().size());
     }*/
@@ -95,7 +95,7 @@ class BookingServiceImplTest {
                 bookingRequestTO.roomId());
 
         assertNotNull(resp);
-        assertEquals(200, resp.status());
+        assertEquals(200, resp.statusCode());
         ArgumentCaptor<NotificationTO> notifCaptor = ArgumentCaptor.forClass(NotificationTO.class);
         verify(notificationService, atLeastOnce()).sendEmail(notifCaptor.capture());
         NotificationTO sent = notifCaptor.getValue();
@@ -144,7 +144,7 @@ class BookingServiceImplTest {
         Response resp = bookingService.findBookingByReference("whatever");
 
         assertNotNull(resp);
-        assertEquals(200, resp.status());
+        assertEquals(200, resp.statusCode());
         assertNotNull(resp.booking());
     }
 
@@ -170,7 +170,7 @@ class BookingServiceImplTest {
         Response resp = bookingService.updateBooking(bookingTO);
 
         assertNotNull(resp);
-        assertEquals(204, resp.status());
+        assertEquals(204, resp.statusCode());
         assertEquals(BookingStatus.CANCELLED, existing.getBookingStatus());
         assertEquals(PaymentStatus.FAILED, existing.getPaymentStatus());
         verify(bookingRepository).save(existing);

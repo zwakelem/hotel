@@ -25,7 +25,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException authException)
             throws IOException, ServletException {
         Response authErrorResponse = Response.builder()
-                .status(HttpStatus.UNAUTHORIZED.value()) // 401
+                .statusCode(HttpStatus.UNAUTHORIZED.value()) // 401
                 .message(authException.getMessage())
                 .build();
         response.setContentType("application/json");
